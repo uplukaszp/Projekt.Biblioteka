@@ -1,12 +1,13 @@
-package projekt.model;
+package project.model;
 
-public class Publisher {
+public class Reader {
+	
 	private long id;
-	private String name;
+	private String forname;
+	private String surname;
 	private String address;
 	private String city;
 	private String zipCode;
-	private String phoneNumber;
 	private String email;
 	public long getId() {
 		return id;
@@ -14,11 +15,17 @@ public class Publisher {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getForname() {
+		return forname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setForname(String forname) {
+		this.forname = forname;
+	}
+	public String getSurname() {
+		return surname;
+	}
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	public String getAddress() {
 		return address;
@@ -38,12 +45,6 @@ public class Publisher {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -52,7 +53,7 @@ public class Publisher {
 	}
 	@Override
 	public String toString() {
-		return "Publisher [id=" + id + ", name=" + name + ", address=" + address + ", city=" + city + ", zipCode="
-				+ zipCode + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
+		return "Reader [id=" + id + ", forname=" + forname + ", surname=" + surname + ", address=" + address + ", city="
+				+ city + ", zipCode=" + zipCode + ", email=" + email + "]";
 	}
 }

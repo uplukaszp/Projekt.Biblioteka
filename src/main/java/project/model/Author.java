@@ -1,4 +1,4 @@
-package projekt.model;
+package project.model;
 
 public class Author {
 	private long id;

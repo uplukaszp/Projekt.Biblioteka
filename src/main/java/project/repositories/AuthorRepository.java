@@ -7,13 +7,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import project.model.Author;
 import project.repositories.mappers.AuthorMapper;
-import projekt.model.Author;
 
 @Repository
 public class AuthorRepository {
-	@Autowired
-	NamedParameterJdbcTemplate namedJdbcTemplate;
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;

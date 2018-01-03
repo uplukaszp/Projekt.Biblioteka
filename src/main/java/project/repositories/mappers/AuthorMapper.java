@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import projekt.model.Author;
+import project.model.Author;
 
 public class AuthorMapper implements RowMapper<Author> {
 

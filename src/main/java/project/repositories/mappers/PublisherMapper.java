@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import projekt.model.Publisher;
+import project.model.Publisher;
 
 public class PublisherMapper implements RowMapper<Publisher> {
 
 	public Publisher mapRow(ResultSet set, int rowNum) throws SQLException {
 		Publisher p = new Publisher();
 		String address=set.getString("Adres");
-		String city=set.getString("Miasto");
+		String city=set.getString("Miejscowosc");
 		String email=set.getString("Email");
 		long id=set.getLong("Id_Wydawnictwa");
 		String name=set.getString("Nazwa");
