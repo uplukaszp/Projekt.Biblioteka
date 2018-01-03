@@ -2,7 +2,7 @@ package projekt.model;
 
 public class Author {
 	private long id;
-	private String name;
+
 	private String forename;
 	private String surname;
 	private String comment;
@@ -15,13 +15,6 @@ public class Author {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getForename() {
 		return forename;
@@ -49,7 +42,7 @@ public class Author {
 
 	@Override
 	public String toString() {
-		return "Author [id=" + id + ", name=" + name + ", forename=" + forename + ", surname=" + surname + ", comment="
+		return "Author [id=" + id + ", forename=" + forename + ", surname=" + surname + ", comment="
 				+ comment + "]";
 	}
 

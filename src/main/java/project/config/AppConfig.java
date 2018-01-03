@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
 @Configuration
-@ComponentScan(basePackages="projekt")
+@ComponentScan(basePackages = "project")
 @PropertySource("file:./config.properties")
 public class AppConfig {
 	@Value("${db.login}")
@@ -26,12 +26,11 @@ public class AppConfig {
 	String url;
 	@Value("${db.name}")
 	String dbName;
-	
+
 	@Bean
-	public DataSource dataSource()
-	{
-		
-		MysqlDataSource dataSource=new MysqlDataSource();
+	public DataSource dataSource() {
+
+		MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setDatabaseName(dbName);
 		dataSource.setServerName(url);
 		dataSource.setUser(username);
@@ -39,15 +38,14 @@ public class AppConfig {
 		dataSource.setPort(Integer.valueOf(port));
 		return dataSource;
 	}
-	
+
 	@Bean
-	public JdbcTemplate jdbcTemplate()
-	{
+	public JdbcTemplate jdbcTemplate() {
 		return new JdbcTemplate(dataSource());
 	}
+
 	@Bean
-	public NamedParameterJdbcTemplate namedParameterJdbcTemplate()
-	{
+	public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
 		return new NamedParameterJdbcTemplate(dataSource());
 	}
 }
