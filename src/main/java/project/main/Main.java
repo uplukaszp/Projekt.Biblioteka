@@ -7,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import project.config.AppConfig;
 import project.repositories.AuthorRepository;
+import project.repositories.mappers.PublisherMapper;
 import projekt.model.Author;
 
 public class Main {
@@ -24,5 +25,6 @@ public class Main {
 		}
 		Author a=repo.getById(31);
 		repo.deleteAuthor(a);
+		new PublisherMapper();
 	}
 }
