@@ -1,9 +1,13 @@
 package project.main;
 
+import java.sql.Date;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import project.config.AppConfig;
+import project.model.Book;
 import project.model.Publisher;
+import project.repositories.BookRepository;
 import project.repositories.PublisherRepository;
 
 public class Main {
@@ -14,9 +18,13 @@ public class Main {
 		context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		// test connection
-		PublisherRepository repo=context.getBean(PublisherRepository.class);
-		for (Publisher publisher : repo.getall()) {
-			System.out.println(publisher);
-		}
+		BookRepository repo = context.getBean(BookRepository.class);
+		Book b = repo.getBook(1);
+		b.setTitle("aaabbb");
+		Date d = new Date(System.currentTimeMillis());
+		b.setPublicationDate(d);
+		b.setAccessible(true);
+		System.out.println(b);
+		repo.addBook(b);
 	}
 }

@@ -3,7 +3,7 @@ package project.repositories.mappers;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 

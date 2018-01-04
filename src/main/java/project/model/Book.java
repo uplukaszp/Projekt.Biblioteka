@@ -1,6 +1,6 @@
 package project.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Book {
 	private long id;
