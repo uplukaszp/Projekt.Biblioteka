@@ -5,11 +5,15 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+
 import project.model.Publisher;
 
 public class PublisherMapper implements RowMapper<Publisher> {
 
 	public Publisher mapRow(ResultSet set, int rowNum) throws SQLException {
+		java.sql.ResultSetMetaData meta=set.getMetaData();
+			
+		
 		Publisher p = new Publisher();
 		String address=set.getString("Adres");
 		String city=set.getString("Miejscowosc");

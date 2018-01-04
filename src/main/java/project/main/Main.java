@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import project.config.AppConfig;
 import project.model.Author;
@@ -24,11 +25,7 @@ public class Main {
 		for (Publisher publisher : repo.getall()) {
 			System.out.println(publisher);
 		}
-		Publisher byId = repo.getById(1);
-		byId.setAddress("Zielona 21");
-		repo.updatePublisher(byId);
-		byId.setEmail("helion@gelion.pl");
-		repo.addPublisher(byId);
-		repo.deletePublisher(repo.getById(21));
+	
+	
 	}
 }
