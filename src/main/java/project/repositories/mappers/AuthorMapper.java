@@ -11,10 +11,10 @@ public class AuthorMapper implements RowMapper<Author> {
 
 	public Author mapRow(ResultSet set, int arg1) throws SQLException {
 		Author aut=new Author();
-		String comment=set.getString("komentarz");
-		String forename=set.getString("Imie");;
-		long id=set.getLong("Id_autora");
-		String surname=set.getString("Nazwisko");;
+		String comment=set.getString("a.Komentarz");
+		String forename=set.getString("a.Imie");;
+		long id=set.getLong("a.Id_autora");
+		String surname=set.getString("a.Nazwisko");;
 		aut.setComment(comment);
 		aut.setForename(forename);
 		aut.setId(id);		

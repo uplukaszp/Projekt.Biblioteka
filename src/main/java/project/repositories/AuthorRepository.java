@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import project.model.Author;
@@ -17,11 +16,11 @@ public class AuthorRepository {
 	JdbcTemplate jdbcTemplate;
 
 	public List<Author> getall() {
-		return jdbcTemplate.query("SELECT * FROM autorzy", new AuthorMapper());
+		return jdbcTemplate.query("SELECT a.Id_autora,a.Imie,a.Nazwisko,a.Komentarz FROM autorzy a", new AuthorMapper());
 	}
 	public Author getById(long id)
 	{
-		return jdbcTemplate.queryForObject("SELECT * FROM autorzy WHERE Id_autora=?",new AuthorMapper(),id);
+		return jdbcTemplate.queryForObject("SELECT a.Id_autora,a.Imie,a.Nazwisko,a.Komentarz FROM autorzy a WHERE Id_autora=?",new AuthorMapper(),id);
 	}
 	public void addAuthor(Author author)
 	{

@@ -11,13 +11,13 @@ public class ReaderMapper implements RowMapper<Reader> {
 
 	public Reader mapRow(ResultSet set, int rowNum) throws SQLException {
 		Reader r = new Reader();
-		String address = set.getString("Adres");
-		String city = set.getString("Miejscowosc");
-		String forname = set.getString("Imie");
-		String email = set.getString("Email");
-		long id = set.getLong("Id_czytelnika");
-		String surname = set.getString("Nazwisko");
-		String zipCode = set.getString("Kod_pocztowy");
+		String address = set.getString("c.Adres");
+		String city = set.getString("c.Miejscowosc");
+		String forname = set.getString("c.Imie");
+		String email = set.getString("c.Email");
+		long id = set.getLong("c.Id_czytelnika");
+		String surname = set.getString("c.Nazwisko");
+		String zipCode = set.getString("c.Kod_pocztowy");
 		r.setAddress(address);
 		r.setCity(city);
 		r.setEmail(email);

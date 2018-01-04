@@ -1,6 +1,7 @@
 package project.repositories.mappers;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -16,13 +17,13 @@ public class BookMapper implements RowMapper<Book> {
 		Book b = new Book();
 		Author a = new AuthorMapper().mapRow(set, rowNum);
 		Publisher p = new PublisherMapper().mapRow(set, rowNum);
-		boolean isAccessible = set.getBoolean("b.Dostepnosc");
-		long id = set.getLong("b.Id_ksiazki");
-		String iSBN = set.getString("b.ISBN");
-		String keywords = set.getString("b.Slowa_kluczowe");
-		Date publicationDate = set.getDate("b.Rok_Wydania");
-		String title = set.getString("b.Tytul");
-		String type = set.getString("b.Gatunek");
+		boolean isAccessible = set.getBoolean("k.Dostepnosc");
+		long id = set.getLong("k.Id_ksiazki");
+		String iSBN = set.getString("k.ISBN");
+		String keywords = set.getString("k.Slowa_kluczowe");
+		Date publicationDate = set.getDate("k.Rok_Wydania");
+		String title = set.getString("k.Tytul");
+		String type = set.getString("k.Gatunek");
 		b.setAccessible(isAccessible);
 		b.setAuthor(a);
 		b.setId(id);

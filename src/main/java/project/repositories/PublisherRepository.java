@@ -13,24 +13,32 @@ import project.repositories.mappers.PublisherMapper;
 public class PublisherRepository {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	
+
 	public List<Publisher> getall() {
-		return jdbcTemplate.query("SELECT * FROM wydawnictwo", new PublisherMapper());
+		String sql = "SELECT w.Id_wydawnictwa,w.Nazwa,w.Adres,w.Miejscowosc,w.Kod_pocztowy,w.Telefon,w.Email FROM wydawnictwo w";
+		return jdbcTemplate.query(sql, new PublisherMapper());
 	}
-	public Publisher getById(long id)
-	{
-		return jdbcTemplate.queryForObject("SELECT * FROM wydawnictwo WHERE Id_wydawnictwa=?",new PublisherMapper(),id);
+
+	public Publisher getById(long id) {
+		String sql = "SELECT w.Id_wydawnictwa,w.Nazwa,w.Adres,w.Miejscowosc,w.Kod_pocztowy,w.Telefon,w.Email FROM wydawnictwo w WHERE Id_wydawnictwa=?";
+		return jdbcTemplate.queryForObject(sql, new PublisherMapper(),id);
 	}
-	public void addPublisher(Publisher publisher)
-	{
-		jdbcTemplate.update("INSERT INTO wydawnictwo (Nazwa,Adres,Miejscowosc,Kod_pocztowy,Telefon,Email) VALUES(?,?,?,?,?,?)",publisher.getName(),publisher.getAddress(),publisher.getCity(),publisher.getZipCode(),publisher.getPhoneNumber(),publisher.getEmail());
+
+	public void addPublisher(Publisher publisher) {
+		jdbcTemplate.update(
+				"INSERT INTO wydawnictwo (Nazwa,Adres,Miejscowosc,Kod_pocztowy,Telefon,Email) VALUES(?,?,?,?,?,?)",
+				publisher.getName(), publisher.getAddress(), publisher.getCity(), publisher.getZipCode(),
+				publisher.getPhoneNumber(), publisher.getEmail());
 	}
-	public void updatePublisher(Publisher publisher)
-	{
-		jdbcTemplate.update("UPDATE wydawnictwo SET Nazwa=?,Adres=?,Miejscowosc=?,Kod_pocztowy=?,Telefon=?,Email=? WHERE Id_wydawnictwa=?",publisher.getName(),publisher.getAddress(),publisher.getCity(),publisher.getZipCode(),publisher.getPhoneNumber(),publisher.getEmail(),publisher.getId());
+
+	public void updatePublisher(Publisher publisher) {
+		jdbcTemplate.update(
+				"UPDATE wydawnictwo SET Nazwa=?,Adres=?,Miejscowosc=?,Kod_pocztowy=?,Telefon=?,Email=? WHERE Id_wydawnictwa=?",
+				publisher.getName(), publisher.getAddress(), publisher.getCity(), publisher.getZipCode(),
+				publisher.getPhoneNumber(), publisher.getEmail(), publisher.getId());
 	}
-	public void deletePublisher(Publisher publisher)
-	{
-		jdbcTemplate.update("DELETE FROM wydawnictwo WHERE Id_wydawnictwa=?",publisher.getId());
+
+	public void deletePublisher(Publisher publisher) {
+		jdbcTemplate.update("DELETE FROM wydawnictwo WHERE Id_wydawnictwa=?", publisher.getId());
 	}
 }
