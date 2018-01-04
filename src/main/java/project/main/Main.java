@@ -19,12 +19,8 @@ public class Main {
 
 		// test connection
 		BookRepository repo = context.getBean(BookRepository.class);
-		Book b = repo.getBook(1);
-		b.setTitle("aaabbb");
-		Date d = new Date(System.currentTimeMillis());
-		b.setPublicationDate(d);
-		b.setAccessible(true);
+		Book b = repo.getBook(81);
+		repo.removeBook(b);
 		System.out.println(b);
-		repo.addBook(b);
 	}
 }
