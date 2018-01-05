@@ -34,5 +34,6 @@ public class BookRepository {
 	{
 		jdbcTemplate.update("DELETE FROM ksiazki WHERE id_ksiazki=?",b.getId());
 	}
+	
 }
 
