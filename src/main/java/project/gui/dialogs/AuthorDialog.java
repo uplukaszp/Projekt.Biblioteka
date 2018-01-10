@@ -30,7 +30,8 @@ public class AuthorDialog extends JDialog {
 	private JTextField fornameTextField;
 	private JTextField surnameTextfield;
 	private JTextArea commentArea;
-
+	private Author a = new Author();
+	
 	@Autowired
 	private AuthorRepository repo;
 
@@ -103,11 +104,13 @@ public class AuthorDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Author a = new Author();
+						
 						a.setForename(fornameTextField.getText());
 						a.setSurname(surnameTextfield.getText());
 						a.setComment(commentArea.getText());
+						if(a.getId()==0)
 						repo.addAuthor(a);
+						else repo.updateAuthor(a);
 						setVisible(false);
 					}
 				});
@@ -133,5 +136,6 @@ public class AuthorDialog extends JDialog {
 		fornameTextField.setText(a.getForename());
 		surnameTextfield.setText(a.getSurname());
 		commentArea.setText(a.getComment());
+		this.a=a;
 	}
 }
