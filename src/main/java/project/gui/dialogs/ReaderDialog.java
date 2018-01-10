@@ -8,11 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import project.model.Publisher;
-import project.repositories.PublisherRepository;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -23,81 +19,104 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @Component
-public class PublisherDialog extends JDialog {
-	
-	@Autowired
-	private PublisherRepository repo;
+public class ReaderDialog extends JDialog {
+
 	private final JPanel contentPanel = new JPanel();
-	private JTextField nameTextField;
-	private JTextField AdressTextField;
+	private JTextField fornameTextField;
+	private JTextField surnameTextField;
+	private JTextField addressTextField;
 	private JTextField CityTextField;
 	private JTextField zipCodeTextField;
-	private JTextField phoneTextField;
 	private JTextField emailTextField;
-	private Publisher p=new Publisher();
 
-	public PublisherDialog() {
-		setBounds(100, 100, 235, 298);
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			ReaderDialog dialog = new ReaderDialog();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public ReaderDialog() {
+		setBounds(100, 100, 229, 302);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		nameTextField = new JTextField();
-		nameTextField.setColumns(10);
-		AdressTextField = new JTextField();
-		AdressTextField.setColumns(10);
+		
+		fornameTextField = new JTextField();
+		fornameTextField.setColumns(10);
+		
+		surnameTextField = new JTextField();
+		surnameTextField.setColumns(10);
+		
+		addressTextField = new JTextField();
+		addressTextField.setColumns(10);
+		
 		CityTextField = new JTextField();
 		CityTextField.setColumns(10);
+		
 		zipCodeTextField = new JTextField();
 		zipCodeTextField.setColumns(10);
-		phoneTextField = new JTextField();
-		phoneTextField.setColumns(10);
+		
 		emailTextField = new JTextField();
 		emailTextField.setColumns(10);
 		
-		JLabel lblNazwa = new JLabel("Nazwa");
+		JLabel lblImi = new JLabel("Imi\u0119");
 		
-		JLabel lblNewLabel = new JLabel("Adres");
+		JLabel lblNazwisko = new JLabel("Nazwisko");
+		
+		JLabel lblAdres = new JLabel("Adres");
 		
 		JLabel lblMiejscowo = new JLabel("Miejscowo\u015B\u0107");
 		
-		JLabel lblNewLabel_1 = new JLabel("Kod pocztowy");
+		JLabel lblKodPocztowy = new JLabel("Kod pocztowy");
 		
-		JLabel lblNewLabel_2 = new JLabel("Telefon");
-		
-		JLabel lblNewLabel_3 = new JLabel("Email");
+		JLabel lblEmail = new JLabel("Email");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
+					.addGap(10)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNazwa)
-						.addComponent(lblNewLabel)
+						.addComponent(lblImi)
+						.addComponent(lblNazwisko)
+						.addComponent(lblAdres)
 						.addComponent(lblMiejscowo)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblNewLabel_2)
-						.addComponent(lblNewLabel_3))
+						.addComponent(lblKodPocztowy)
+						.addComponent(lblEmail))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(nameTextField, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-						.addComponent(AdressTextField, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-						.addComponent(CityTextField, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-						.addComponent(zipCodeTextField, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-						.addComponent(phoneTextField, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-						.addComponent(emailTextField, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
-					.addContainerGap())
+						.addComponent(fornameTextField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+						.addComponent(surnameTextField, Alignment.TRAILING)
+						.addComponent(addressTextField, Alignment.TRAILING)
+						.addComponent(CityTextField, Alignment.TRAILING)
+						.addComponent(zipCodeTextField, Alignment.TRAILING)
+						.addComponent(emailTextField, Alignment.TRAILING))
+					.addGap(2))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNazwa))
+						.addComponent(fornameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblImi))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(AdressTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel))
+						.addComponent(surnameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNazwisko))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(addressTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAdres))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(CityTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -105,16 +124,12 @@ public class PublisherDialog extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(zipCodeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1))
+						.addComponent(lblKodPocztowy))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(phoneTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_2))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE, false)
 						.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_3))
-					.addContainerGap(56, Short.MAX_VALUE))
+						.addComponent(lblEmail))
+					.addGap(70))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
@@ -125,17 +140,6 @@ public class PublisherDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
-						p.setAddress(AdressTextField.getText());
-						p.setCity(CityTextField.getText());
-						p.setEmail(emailTextField.getText());
-						p.setName(nameTextField.getText());
-						p.setPhoneNumber(phoneTextField.getText());
-						p.setZipCode(zipCodeTextField.getText());
-						if(p.getId()==0)
-						repo.addPublisher(p);
-						else repo.updatePublisher(p);
-						setVisible(false);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -153,15 +157,5 @@ public class PublisherDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-	}
-	public void setData(Publisher p)
-	{
-		AdressTextField.setText(p.getAddress());
-		CityTextField.setText(p.getCity());
-		emailTextField.setText(p.getEmail());
-		nameTextField.setText(p.getName());
-		phoneTextField.setText(p.getPhoneNumber());
-		zipCodeTextField.setText(p.getZipCode());
-		this.p=p;
 	}
 }

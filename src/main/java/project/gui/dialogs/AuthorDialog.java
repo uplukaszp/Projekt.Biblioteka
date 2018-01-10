@@ -37,7 +37,7 @@ public class AuthorDialog extends JDialog {
 
 	public AuthorDialog() {
 
-		setBounds(100, 100, 275, 302);
+		setBounds(100, 100, 241, 297);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -57,44 +57,38 @@ public class AuthorDialog extends JDialog {
 		JLabel lblsurname = new JLabel("Nazwisko");
 		JLabel lblComment = new JLabel("Komentarz");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel
-				.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel
-								.createSequentialGroup().addGap(
-										17)
-								.addGroup(
-										gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
-												.addGroup(gl_contentPanel.createSequentialGroup()
-														.addPreferredGap(ComponentPlacement.RELATED, 31,
-																Short.MAX_VALUE)
-														.addComponent(lbforname))
-												.addComponent(lblComment).addGroup(
-														gl_contentPanel.createSequentialGroup()
-																.addPreferredGap(ComponentPlacement.RELATED, 7,
-																		Short.MAX_VALUE)
-																.addComponent(lblsurname)))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-										.addComponent(commentArea, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-										.addComponent(surnameTextfield, Alignment.LEADING)
-										.addComponent(fornameTextField))
-								.addGap(29)));
-		gl_contentPanel
-				.setVerticalGroup(
-						gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(
-										gl_contentPanel.createSequentialGroup().addGap(7)
-												.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-														.addComponent(fornameTextField).addComponent(lbforname))
-												.addGap(4)
-												.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-														.addComponent(surnameTextfield).addComponent(lblsurname))
-												.addGap(4)
-												.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-														.addComponent(commentArea, GroupLayout.PREFERRED_SIZE, 154,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblComment))
-												.addGap(88)));
+		gl_contentPanel.setHorizontalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGap(17)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(lbforname)
+						.addComponent(lblComment)
+						.addComponent(lblsurname))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(commentArea, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+						.addComponent(surnameTextfield, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+						.addComponent(fornameTextField, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_contentPanel.setVerticalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addGap(7)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(fornameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lbforname))
+					.addGap(4)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(surnameTextfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblsurname))
+					.addGap(4)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(commentArea, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblComment))
+					.addGap(88))
+		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
