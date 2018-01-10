@@ -8,7 +8,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import project.model.Reader;
+import project.repositories.ReaderRepository;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -29,7 +33,9 @@ public class ReaderDialog extends JDialog {
 	private JTextField zipCodeTextField;
 	private JTextField emailTextField;
 
-	
+	@Autowired
+	private ReaderRepository repo;
+	private Reader r=new Reader();
 	/**
 	 * Launch the application.
 	 */
@@ -140,6 +146,15 @@ public class ReaderDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						r.setAddress(addressTextField.getText());
+						r.setCity(CityTextField.getText());
+						r.setEmail(emailTextField.getText());
+						r.setForname(fornameTextField.getText());
+						r.setSurname(surnameTextField.getText());
+						r.setZipCode(zipCodeTextField.getText());
+						if(r.getId()==0)repo.addReader(r);
+						else repo.updateReader(r);
+						setVisible(false);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -157,5 +172,15 @@ public class ReaderDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	public void setData(Reader r) {
+			addressTextField.setText(r.getAddress());
+			CityTextField.setText(r.getCity());
+			emailTextField.setText(r.getEmail());
+			fornameTextField.setText(r.getForname());
+			surnameTextField.setText(r.getSurname());
+			zipCodeTextField.setText(r.getZipCode());
+			this.r=r;
 	}
 }

@@ -6,10 +6,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import project.config.AppConfig;
 import project.gui.dialogs.AuthorDialog;
 import project.gui.dialogs.PublisherDialog;
+import project.gui.dialogs.ReaderDialog;
 import project.model.Book;
 import project.model.Publisher;
+import project.model.Reader;
 import project.repositories.BookRepository;
 import project.repositories.PublisherRepository;
+import project.repositories.ReaderRepository;
 
 public class Main {
 
@@ -19,10 +22,10 @@ public class Main {
 		context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		// test connection
-		PublisherRepository repo=context.getBean(PublisherRepository.class);
-		Publisher p = repo.getById(31);
+		ReaderRepository repo=context.getBean(ReaderRepository.class);
+		Reader p = repo.getById(31);
 		
-		PublisherDialog dialog=context.getBean(PublisherDialog.class);
+		ReaderDialog dialog=context.getBean(ReaderDialog.class);
 		dialog.setData(p);
 		dialog.setVisible(true);
 
