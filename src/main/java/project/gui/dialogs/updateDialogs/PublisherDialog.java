@@ -38,6 +38,7 @@ public class PublisherDialog extends JDialog {
 	private Publisher p = new Publisher();
 
 	public PublisherDialog() {
+		setModal(true);
 		setResizable(false);
 		setBounds(100, 100, 235, 298);
 		getContentPane().setLayout(new BorderLayout());

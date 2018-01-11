@@ -16,7 +16,7 @@ public class AuthorTableModel extends AbstractTableModel{
 
 	private AuthorRepository repo;
 	private List<Author> list;
-
+	
 	@Autowired
 	public AuthorTableModel(AuthorRepository repo) {
 		this.repo=repo;
@@ -64,5 +64,9 @@ public class AuthorTableModel extends AbstractTableModel{
 				return "";
 				
 			}
+	}
+	public Author getAuthor(int i)
+	{
+		return list.get(i);
 	}
 }

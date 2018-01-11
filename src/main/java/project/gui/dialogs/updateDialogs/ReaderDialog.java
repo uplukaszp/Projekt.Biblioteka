@@ -39,6 +39,7 @@ public class ReaderDialog extends JDialog {
 	private Reader r = new Reader();
 
 	public ReaderDialog() {
+		setModal(true);
 		setResizable(false);
 		setBounds(100, 100, 229, 302);
 		getContentPane().setLayout(new BorderLayout());

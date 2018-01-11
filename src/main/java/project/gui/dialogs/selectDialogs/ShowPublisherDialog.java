@@ -25,6 +25,7 @@ public class ShowPublisherDialog extends JDialog {
 
 	@Autowired
 	public ShowPublisherDialog(PublisherTableModel model) {
+		setModal(true);
 		this.model = model;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

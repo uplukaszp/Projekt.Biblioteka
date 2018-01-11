@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
 import project.model.Author;
 import project.model.Publisher;
 import project.repositories.AuthorRepository;
@@ -23,6 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @Component
 public class BookDialog extends JDialog {
@@ -36,12 +39,16 @@ public class BookDialog extends JDialog {
 	
 	@Autowired
 	private BookRepository bookrepo;
+	
+	
 	@Autowired
-	private AuthorRepository authrepo;
-	@Autowired
-	private PublisherRepository pubrepo;
+	private ShowAuthorDialog showauthdialog;
+	
+	private Author a;
+	private JLabel authlabel;
 	
 	public BookDialog() {
+		setModal(true);
 		setResizable(false);
 		setBounds(100, 100, 261, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -78,12 +85,25 @@ public class BookDialog extends JDialog {
 		JLabel lblWydawnictwo = new JLabel("Wydawnictwo");
 		
 		JButton btnNewButton = new JButton("Przegl\u0105daj");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showauthdialog.setVisible(true);
+				a=showauthdialog.getAuthor();
+				authlabel.setText(a.getForename());
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("Przegl\u0105daj");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		authlabel = new JLabel("Nie wybrano");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addGap(19)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblTytu)
@@ -100,7 +120,10 @@ public class BookDialog extends JDialog {
 						.addComponent(textField_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
 						.addComponent(textField_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
 						.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-						.addComponent(btnNewButton)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(btnNewButton)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(authlabel))
 						.addComponent(btnNewButton_1))
 					.addContainerGap())
 		);
@@ -129,12 +152,13 @@ public class BookDialog extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton)
-						.addComponent(lblAutor))
+						.addComponent(lblAutor)
+						.addComponent(authlabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton_1)
 						.addComponent(lblWydawnictwo))
-					.addContainerGap(34, Short.MAX_VALUE))
+					.addContainerGap(46, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{

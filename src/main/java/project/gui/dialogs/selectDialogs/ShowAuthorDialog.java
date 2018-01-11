@@ -12,23 +12,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project.gui.tablemodels.AuthorTableModel;
+import project.model.Author;
+import project.repositories.AuthorRepository;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @Component
 public class ShowAuthorDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	
-	private AuthorTableModel model;
+	final private AuthorTableModel model;
 	private JTable table;
+	private Author a;
+	
+
 	
 	@Autowired
-	public ShowAuthorDialog(AuthorTableModel model) {
+	public ShowAuthorDialog(final AuthorTableModel model) {
+		setModal(true);
 		this.model=model;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -46,12 +54,23 @@ public class ShowAuthorDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						a=model.getAuthor(table.getSelectedRow());
+						setVisible(false);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -62,5 +81,9 @@ public class ShowAuthorDialog extends JDialog {
 	{
 		if(visible)model.update();
 		super.setVisible(visible);
+	}
+	public Author getAuthor()
+	{
+		return a;
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
+import project.gui.dialogs.updateDialogs.BookDialog;
 import project.gui.dialogs.updateDialogs.PublisherDialog;
 import project.gui.dialogs.updateDialogs.ReaderDialog;
 
@@ -32,7 +33,8 @@ public class MainFrame extends JFrame {
 	private ReaderDialog readdialog;
 	@Autowired
 	private PublisherDialog publidialog;
-	
+	@Autowired
+	private BookDialog bookdialog;
 	@Autowired
 	private ShowAuthorDialog showauthdialog;
 	
@@ -70,6 +72,11 @@ public class MainFrame extends JFrame {
 		mnDodaj.add(mntmCzytelnika);
 		
 		JMenuItem mntmKsik = new JMenuItem("Ksi\u0105\u017Ck\u0119");
+		mntmKsik.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				bookdialog.setVisible(true);
+			}
+		});
 		mnDodaj.add(mntmKsik);
 		
 		JMenuItem mntmAutora = new JMenuItem("Autora");

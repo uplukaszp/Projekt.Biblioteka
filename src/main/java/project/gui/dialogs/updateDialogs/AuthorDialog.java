@@ -36,6 +36,7 @@ public class AuthorDialog extends JDialog {
 	private AuthorRepository repo;
 
 	public AuthorDialog() {
+		setModal(true);
 		setResizable(false);
 
 		setBounds(100, 100, 241, 297);
