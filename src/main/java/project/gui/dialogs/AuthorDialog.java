@@ -31,7 +31,7 @@ public class AuthorDialog extends JDialog {
 	private JTextField surnameTextfield;
 	private JTextArea commentArea;
 	private Author a = new Author();
-	
+
 	@Autowired
 	private AuthorRepository repo;
 
@@ -57,38 +57,34 @@ public class AuthorDialog extends JDialog {
 		JLabel lblsurname = new JLabel("Nazwisko");
 		JLabel lblComment = new JLabel("Komentarz");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(17)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lbforname)
-						.addComponent(lblComment)
-						.addComponent(lblsurname))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(commentArea, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-						.addComponent(surnameTextfield, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-						.addComponent(fornameTextField, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(fornameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lbforname))
-					.addGap(4)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(surnameTextfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblsurname))
-					.addGap(4)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(commentArea, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblComment))
-					.addGap(88))
-		);
+		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup().addGap(17)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false).addComponent(lbforname)
+								.addComponent(lblComment).addComponent(lblsurname))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+								.addComponent(commentArea, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 127,
+										Short.MAX_VALUE)
+								.addComponent(surnameTextfield, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 127,
+										Short.MAX_VALUE)
+								.addComponent(fornameTextField, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+						.addContainerGap()));
+		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup().addGap(7)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(fornameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lbforname))
+						.addGap(4)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(surnameTextfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblsurname))
+						.addGap(4)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(commentArea, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblComment))
+						.addGap(88)));
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
@@ -98,14 +94,17 @@ public class AuthorDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+
 						a.setForename(fornameTextField.getText());
 						a.setSurname(surnameTextfield.getText());
 						a.setComment(commentArea.getText());
-						if(a.getId()==0)
-						repo.addAuthor(a);
-						else repo.updateAuthor(a);
+						if (a.getId() == 0)
+							repo.addAuthor(a);
+						else
+							repo.updateAuthor(a);
+						setData(new Author());
 						setVisible(false);
+
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -116,6 +115,7 @@ public class AuthorDialog extends JDialog {
 				JButton cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						setData(new Author());
 						setVisible(false);
 					}
 				});
@@ -130,6 +130,6 @@ public class AuthorDialog extends JDialog {
 		fornameTextField.setText(a.getForename());
 		surnameTextfield.setText(a.getSurname());
 		commentArea.setText(a.getComment());
-		this.a=a;
+		this.a = a;
 	}
 }

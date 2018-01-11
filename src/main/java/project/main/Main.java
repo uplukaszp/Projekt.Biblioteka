@@ -7,6 +7,7 @@ import project.config.AppConfig;
 import project.gui.dialogs.AuthorDialog;
 import project.gui.dialogs.PublisherDialog;
 import project.gui.dialogs.ReaderDialog;
+import project.gui.frame.MainFrame;
 import project.model.Book;
 import project.model.Publisher;
 import project.model.Reader;
@@ -23,11 +24,9 @@ public class Main {
 
 		// test connection
 		ReaderRepository repo=context.getBean(ReaderRepository.class);
-		Reader p = repo.getById(31);
 		
-		ReaderDialog dialog=context.getBean(ReaderDialog.class);
-		dialog.setData(p);
-		dialog.setVisible(true);
+		MainFrame frame = context.getBean(MainFrame.class);
+		frame.setVisible(true);
 
 	}
 }
