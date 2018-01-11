@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.dialogs.updateDialogs.PublisherDialog;
 import project.gui.dialogs.updateDialogs.ReaderDialog;
@@ -30,7 +31,9 @@ public class MainFrame extends JFrame {
 	private ReaderDialog readdialog;
 	@Autowired
 	private PublisherDialog publidialog;
-
+	
+	@Autowired
+	private ShowAuthorDialog showauthdialog;
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -86,7 +89,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmAutorw = new JMenuItem("Autor\u00F3w");
 		mntmAutorw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				showauthdialog.setVisible(true);
 			}
 		});
 		mnPrzegldaj.add(mntmAutorw);

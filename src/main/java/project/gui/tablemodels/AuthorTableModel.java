@@ -20,15 +20,14 @@ public class AuthorTableModel extends AbstractTableModel{
 	@Autowired
 	public AuthorTableModel(AuthorRepository repo) {
 		this.repo=repo;
-		list=repo.getall();
 	}
 	public int getRowCount() {
-		return 4;
+		
+		return list.size();
 	}
 
 	public int getColumnCount() {
-		list=repo.getall();
-		return list.size();
+		return 4;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -41,10 +40,30 @@ public class AuthorTableModel extends AbstractTableModel{
 		case 2: 
 			return list.get(rowIndex).getComment();
 		case 3:
-			return new JButton("Wybierz");
+			return new JButton("Edytuj");
 		default:
 			return null;
 		}
 	}
+	public void update()
+	{
+		list=repo.getall();
+	}
 	
+	@Override
+	public String getColumnName(int column) {
+	        
+	        switch (column) {
+			case 0:
+				return "Imiê";
+			case 1:
+				return "Nazwisko";
+			case 2:
+				return "Komentarz";
+			default:
+				return "";
+				
+			}
+	    }
+
 }
