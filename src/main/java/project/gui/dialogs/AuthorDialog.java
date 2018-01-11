@@ -36,6 +36,7 @@ public class AuthorDialog extends JDialog {
 	private AuthorRepository repo;
 
 	public AuthorDialog() {
+		setResizable(false);
 
 		setBounds(100, 100, 241, 297);
 		getContentPane().setLayout(new BorderLayout());

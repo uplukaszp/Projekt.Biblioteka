@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import project.gui.dialogs.AuthorDialog;
 import project.gui.dialogs.PublisherDialog;
 import project.gui.dialogs.ReaderDialog;
+import project.gui.tablemodels.AuthorTableModel;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -79,6 +80,17 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnDodaj.add(mntmWydawnictwo);
+		
+		JMenu mnPrzegldaj = new JMenu("Przegl\u0105daj");
+		menuBar.add(mnPrzegldaj);
+		
+		JMenuItem mntmAutorw = new JMenuItem("Autor\u00F3w");
+		mntmAutorw.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		mnPrzegldaj.add(mntmAutorw);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
