@@ -5,17 +5,19 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import project.model.Publisher;
 import project.repositories.PublisherRepository;
 
+@Component
 public class PublisherTableModel extends AbstractTableModel {
 	
 	private PublisherRepository repo;
 	private List<Publisher> list;
 	
 	@Autowired
-	public PublisherTableModel() {
+	public PublisherTableModel(PublisherRepository repo) {
 		this.repo=repo;
 	}
 	public int getRowCount() {

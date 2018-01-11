@@ -64,6 +64,5 @@ public class AuthorTableModel extends AbstractTableModel{
 				return "";
 				
 			}
-	    }
-
+	}
 }
