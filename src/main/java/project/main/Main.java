@@ -4,9 +4,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import project.config.AppConfig;
-import project.gui.dialogs.AuthorDialog;
-import project.gui.dialogs.PublisherDialog;
-import project.gui.dialogs.ReaderDialog;
+import project.gui.dialogs.updateDialogs.AuthorDialog;
+import project.gui.dialogs.updateDialogs.PublisherDialog;
+import project.gui.dialogs.updateDialogs.ReaderDialog;
 import project.gui.frame.MainFrame;
 import project.model.Book;
 import project.model.Publisher;

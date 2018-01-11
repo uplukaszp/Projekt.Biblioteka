@@ -9,10 +9,9 @@ import javax.swing.border.EmptyBorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import project.gui.dialogs.AuthorDialog;
-import project.gui.dialogs.PublisherDialog;
-import project.gui.dialogs.ReaderDialog;
-import project.gui.tablemodels.AuthorTableModel;
+import project.gui.dialogs.updateDialogs.AuthorDialog;
+import project.gui.dialogs.updateDialogs.PublisherDialog;
+import project.gui.dialogs.updateDialogs.ReaderDialog;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;

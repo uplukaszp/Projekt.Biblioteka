@@ -1,4 +1,4 @@
-package project.gui.dialogs;
+package project.gui.dialogs.updateDialogs;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
