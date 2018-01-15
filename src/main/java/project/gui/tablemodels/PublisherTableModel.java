@@ -27,7 +27,7 @@ public class PublisherTableModel extends AbstractTableModel {
 
 	public int getColumnCount() {
 		
-		return 7;
+		return 6;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -52,6 +52,7 @@ public class PublisherTableModel extends AbstractTableModel {
 	public void update()
 	{
 		list=repo.getall();
+		fireTableDataChanged();
 	}
 	
 	@Override
@@ -76,5 +77,11 @@ public class PublisherTableModel extends AbstractTableModel {
 	public Publisher getPublisher(int selectedRow) {
 		return list.get(selectedRow);
 		
+	}
+	public void removePublisher(int selectedRow)
+	{
+		repo.deletePublisher(list.get(selectedRow));
+		list.remove(selectedRow);
+		fireTableDataChanged();
 	}
 }
