@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project.gui.tablemodels.PublisherTableModel;
+import project.model.Publisher;
 
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @Component
 public class ShowPublisherDialog extends JDialog {
@@ -22,9 +25,10 @@ public class ShowPublisherDialog extends JDialog {
 	private JTable table;
 
 	private PublisherTableModel model;
-
+	
+	private Publisher p;
 	@Autowired
-	public ShowPublisherDialog(PublisherTableModel model) {
+	public ShowPublisherDialog(final PublisherTableModel model) {
 		setModal(true);
 		this.model = model;
 		setBounds(100, 100, 450, 300);
@@ -45,6 +49,12 @@ public class ShowPublisherDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						p=model.getPublisher(table.getSelectedRow());
+						setVisible(false);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -61,5 +71,9 @@ public class ShowPublisherDialog extends JDialog {
 	{
 		if(visible)model.update();
 		super.setVisible(visible);
+	}
+	public Publisher getPublisher() {
+		
+		return p;
 	}
 }

@@ -9,66 +9,73 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Component;
 
 import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
+import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.model.Author;
+import project.model.Book;
 import project.model.Publisher;
 import project.repositories.AuthorRepository;
 import project.repositories.BookRepository;
-import project.repositories.PublisherRepository;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 
 @Component
 public class BookDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField titleTextField;
+	private JTextField yearTextField;
+	private JTextField isbnTextField;
+	private JTextField keyWordsTextField;
+	private JTextField typeTextField;
 	
 	@Autowired
-	private BookRepository bookrepo;
+	private BookRepository repo;
 	
 	
 	@Autowired
 	private ShowAuthorDialog showauthdialog;
-	
-	private Author a;
+	@Autowired
+	private ShowPublisherDialog showpubdialog;
+
+	private Book b=new Book();
 	private JLabel authlabel;
+	private JLabel publisherLabel;
 	
 	public BookDialog() {
 		setModal(true);
 		setResizable(false);
-		setBounds(100, 100, 261, 300);
+		setBounds(100, 100, 306, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		titleTextField = new JTextField();
+		titleTextField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		yearTextField = new JTextField();
+		yearTextField.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		isbnTextField = new JTextField();
+		isbnTextField.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		keyWordsTextField = new JTextField();
+		keyWordsTextField.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		typeTextField = new JTextField();
+		typeTextField.setColumns(10);
 		
 		JLabel lblTytu = new JLabel("Tytu\u0142");
 		
@@ -88,18 +95,25 @@ public class BookDialog extends JDialog {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showauthdialog.setVisible(true);
-				a=showauthdialog.getAuthor();
-				authlabel.setText(a.getForename());
+				b.setAuthor(showauthdialog.getAuthor());
+				authlabel.setText(b.getAuthor().getForename());
 			}
 		});
 		
 		JButton btnNewButton_1 = new JButton("Przegl\u0105daj");
 		btnNewButton_1.addActionListener(new ActionListener() {
+			
+
 			public void actionPerformed(ActionEvent e) {
+				showpubdialog.setVisible(true);
+				b.setPublisher(showpubdialog.getPublisher());
+				publisherLabel.setText(b.getPublisher().getName());
 			}
 		});
 		
 		authlabel = new JLabel("Nie wybrano");
+		
+		publisherLabel = new JLabel("Nie wybrano");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -115,39 +129,42 @@ public class BookDialog extends JDialog {
 						.addComponent(lblWydawnictwo))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_2, Alignment.TRAILING, 137, 137, Short.MAX_VALUE)
-						.addComponent(textField_4, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-						.addComponent(textField_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-						.addComponent(textField_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-						.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+						.addComponent(isbnTextField, Alignment.TRAILING, 137, 182, Short.MAX_VALUE)
+						.addComponent(typeTextField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+						.addComponent(keyWordsTextField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+						.addComponent(yearTextField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+						.addComponent(titleTextField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addComponent(btnNewButton)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(authlabel))
-						.addComponent(btnNewButton_1))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(btnNewButton_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(publisherLabel, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(titleTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTytu))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(yearTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(isbnTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(keyWordsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblSowaKluczowe))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(typeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblGatunek))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
@@ -157,7 +174,8 @@ public class BookDialog extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton_1)
-						.addComponent(lblWydawnictwo))
+						.addComponent(lblWydawnictwo)
+						.addComponent(publisherLabel))
 					.addContainerGap(46, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
@@ -167,6 +185,30 @@ public class BookDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						SimpleDateFormat formatter=new SimpleDateFormat("YYYY");
+						try {
+							java.util.Date date=formatter.parse(yearTextField.getText());
+							java.sql.Date dbDate=new java.sql.Date(date.getTime());
+							
+							b.setAccessible(true);
+							b.setISBN(isbnTextField.getText());
+							b.setKeywords(keyWordsTextField.getText());
+							b.setPublicationDate(dbDate);
+							b.setTitle(titleTextField.getText());
+							b.setType(typeTextField.getText());
+							if(b.getId()==0)repo.addBook(b);
+							else repo.updateBook(b);
+							setVisible(false);
+						} catch (ParseException e1) {
+							System.out.println(e1.getMessage());
+						}
+						
+						
+					
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -177,5 +219,20 @@ public class BookDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+	public void setBook(Book b)
+	{
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(b.getPublicationDate());
+		
+		this.b=b;
+		titleTextField.setText(b.getTitle());
+		yearTextField.setText(String.valueOf(cal.get(Calendar.YEAR)));
+		isbnTextField.setText(b.getISBN());
+		keyWordsTextField.setText(b.getKeywords());
+		typeTextField.setText(b.getType());
+		authlabel.setText(b.getAuthor().getForename());
+		publisherLabel.setText(b.getPublisher().getName());
+	
 	}
 }

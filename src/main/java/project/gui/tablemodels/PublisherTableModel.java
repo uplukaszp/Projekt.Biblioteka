@@ -73,4 +73,8 @@ public class PublisherTableModel extends AbstractTableModel {
 			return "";
 		}
 	}
+	public Publisher getPublisher(int selectedRow) {
+		return list.get(selectedRow);
+		
+	}
 }

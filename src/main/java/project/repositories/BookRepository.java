@@ -34,6 +34,11 @@ public class BookRepository {
 	{
 		jdbcTemplate.update("DELETE FROM ksiazki WHERE id_ksiazki=?",b.getId());
 	}
+	public void updateBook(Book b) {
+		jdbcTemplate.update("UPDATE ksiazki SET Tytul=?,Rok_wydania=?,ISBN=?,Slowa_kluczowe=?,Dostepnosc=?,Gatunek=?,Id_autora=?,Id_wydawnictwa=? WHERE Id_ksiazki=?", 
+				b.getTitle(),b.getPublicationDate(),b.getISBN(),b.getKeywords(),b.isAccessible(),b.getType(),b.getAuthor().getId(),b.getPublisher().getId(),b.getId());
+		
+	}
 	
 }
 
