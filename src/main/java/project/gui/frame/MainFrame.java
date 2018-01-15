@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
+import project.gui.dialogs.selectDialogs.ShowReaderDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.dialogs.updateDialogs.BookDialog;
 import project.gui.dialogs.updateDialogs.PublisherDialog;
@@ -37,9 +38,10 @@ public class MainFrame extends JFrame {
 	private BookDialog bookdialog;
 	@Autowired
 	private ShowAuthorDialog showauthdialog;
-	
 	@Autowired
 	private ShowPublisherDialog showpubdialog;
+	@Autowired
+	private ShowReaderDialog showreaddialog;
 	
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -113,6 +115,14 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnPrzegldaj.add(mntmWydawnictwa);
+		
+		JMenuItem mntmCzytelnikw = new JMenuItem("Czytelnik\u00F3w");
+		mntmCzytelnikw.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showreaddialog.setVisible(true);
+			}
+		});
+		mnPrzegldaj.add(mntmCzytelnikw);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
