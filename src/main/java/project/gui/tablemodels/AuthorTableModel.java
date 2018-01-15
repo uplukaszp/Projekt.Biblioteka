@@ -27,7 +27,7 @@ public class AuthorTableModel extends AbstractTableModel{
 	}
 
 	public int getColumnCount() {
-		return 4;
+		return 3;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
@@ -39,8 +39,6 @@ public class AuthorTableModel extends AbstractTableModel{
 			return list.get(rowIndex).getSurname();
 		case 2: 
 			return list.get(rowIndex).getComment();
-		case 3:
-			return new JButton("Edytuj");
 		default:
 			return null;
 		}
@@ -48,6 +46,7 @@ public class AuthorTableModel extends AbstractTableModel{
 	public void update()
 	{
 		list=repo.getall();
+		fireTableDataChanged();
 	}
 	
 	@Override
@@ -67,6 +66,13 @@ public class AuthorTableModel extends AbstractTableModel{
 	}
 	public Author getAuthor(int i)
 	{
+		if(i==-1)return null;
 		return list.get(i);
+	}
+	public void removeAuthor(int i)
+	{
+		repo.deleteAuthor(list.get(i));
+		list.remove(i);
+		fireTableDataChanged();
 	}
 }

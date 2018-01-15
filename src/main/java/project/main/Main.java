@@ -24,12 +24,9 @@ public class Main {
 		context = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		// test connection
-		BookRepository repo=context.getBean(BookRepository.class);
-		BookDialog dialog=context.getBean(BookDialog.class);
-		dialog.setBook(repo.getBook(91));
-		dialog.setVisible(true);
-		//MainFrame frame = context.getBean(MainFrame.class);
-		//frame.setVisible(true);
+		
+		MainFrame frame = context.getBean(MainFrame.class);
+		frame.setVisible(true);
 
 	}
 }
