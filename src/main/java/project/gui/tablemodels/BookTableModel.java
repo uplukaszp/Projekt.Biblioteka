@@ -1,5 +1,6 @@
 package project.gui.tablemodels;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -33,7 +34,9 @@ public class BookTableModel extends AbstractTableModel {
 		case 1:
 			return list.get(rowIndex).getAuthor();
 		case 2:
-			return list.get(rowIndex).getPublicationDate().getYear();
+			SimpleDateFormat f=new SimpleDateFormat("YYYY");
+			String year=f.format(list.get(rowIndex).getPublicationDate());
+			return year;
 		case 3:
 			return list.get(rowIndex).getPublisher();
 		case 4:
@@ -41,7 +44,16 @@ public class BookTableModel extends AbstractTableModel {
 		case 5:
 			return list.get(rowIndex).getType();
 		case 6:
-			return "TAK";
+			switch (list.get(rowIndex).getStatus()) {
+			case available:
+				return "Dostêpna";
+			case lent:
+				return "Wypo¿yczona";
+			case withdrawn:
+				return "Wycofana";
+			default:
+				return "";
+			}
 		case 7:
 			return list.get(rowIndex).getKeywords();
 			

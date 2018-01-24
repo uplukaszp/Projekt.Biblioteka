@@ -8,7 +8,7 @@ public class Book {
 	private Date publicationDate;
 	private String ISBN;
 	private String Keywords;
-	private boolean isAccessible;
+	private BookStatus status;
 	private String type;
 	private Author author;
 	private Publisher publisher;
@@ -53,14 +53,6 @@ public class Book {
 		Keywords = keywords;
 	}
 
-	public boolean isAccessible() {
-		return isAccessible;
-	}
-
-	public void setAccessible(boolean isAccessible) {
-		this.isAccessible = isAccessible;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -85,11 +77,16 @@ public class Book {
 		this.publisher = publisher;
 	}
 
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", publicationDate=" + publicationDate + ", ISBN=" + ISBN
-				+ ", Keywords=" + Keywords + ", isAccessible=" + isAccessible + ", type=" + type + ", author=" + author
-				+ ", publisher=" + publisher + "]";
+	public BookStatus getStatus() {
+		return status;
 	}
 
+	public void setStatus(BookStatus status) {
+		this.status = status;
+	}
+	
+	public boolean isAccesible()
+	{
+		return status==BookStatus.lent||status==BookStatus.available;
+	}
 }

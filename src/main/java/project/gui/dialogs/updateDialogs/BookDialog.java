@@ -16,6 +16,7 @@ import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.model.Author;
 import project.model.Book;
+import project.model.BookStatus;
 import project.model.Publisher;
 import project.repositories.AuthorRepository;
 import project.repositories.BookRepository;
@@ -191,8 +192,8 @@ public class BookDialog extends JDialog {
 						try {
 							java.util.Date date=formatter.parse(yearTextField.getText());
 							java.sql.Date dbDate=new java.sql.Date(date.getTime());
-							
-							b.setAccessible(true);
+							if(b.getId()==0)b.setStatus(BookStatus.available);
+							else b.setStatus(b.getStatus());
 							b.setISBN(isbnTextField.getText());
 							b.setKeywords(keyWordsTextField.getText());
 							b.setPublicationDate(dbDate);
