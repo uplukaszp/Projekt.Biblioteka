@@ -52,7 +52,6 @@ public class Publisher {
 	}
 	@Override
 	public String toString() {
-		return "Publisher [id=" + id + ", name=" + name + ", address=" + address + ", city=" + city + ", zipCode="
-				+ zipCode + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
+		return name;
 	}
 }

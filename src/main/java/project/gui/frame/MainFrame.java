@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
+import project.gui.dialogs.selectDialogs.ShowBookDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.gui.dialogs.selectDialogs.ShowReaderDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
@@ -42,7 +43,8 @@ public class MainFrame extends JFrame {
 	private ShowPublisherDialog showpubdialog;
 	@Autowired
 	private ShowReaderDialog showreaddialog;
-	
+	@Autowired
+	private ShowBookDialog showbookdialog;
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -123,6 +125,14 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnPrzegldaj.add(mntmCzytelnikw);
+		
+		JMenuItem mntmKsiki = new JMenuItem("Ksi\u0105\u017Cki");
+		mntmKsiki.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showbookdialog.setVisible(true);
+			}
+		});
+		mnPrzegldaj.add(mntmKsiki);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

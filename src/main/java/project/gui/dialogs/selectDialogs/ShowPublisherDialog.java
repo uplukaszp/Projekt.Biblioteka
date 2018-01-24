@@ -44,7 +44,7 @@ public class ShowPublisherDialog extends JDialog {
 	public ShowPublisherDialog(final PublisherTableModel model) {
 		setModal(true);
 		this.model = model;
-		setBounds(100, 100, 482, 300);
+		setBounds(100, 100, 486, 299);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

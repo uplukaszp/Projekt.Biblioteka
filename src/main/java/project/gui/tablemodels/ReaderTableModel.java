@@ -18,11 +18,7 @@ public class ReaderTableModel extends AbstractTableModel {
 	private ReaderRepository repo;
 	private List<Reader> list;
 
-	@Autowired
-	public ReaderTableModel(ReaderRepository repo) {
-		this.repo = repo;
-	}
-
+	
 	public int getRowCount() {
 		return list.size();
 
