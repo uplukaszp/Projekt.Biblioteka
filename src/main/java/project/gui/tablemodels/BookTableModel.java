@@ -77,5 +77,16 @@ public class BookTableModel extends AbstractTableModel {
 
 	public void update() {
 		list = repo.getAll();
+		fireTableDataChanged();
+	}
+
+	public void removeBook(int selectedRow) {
+		repo.removeBook(list.get(selectedRow));
+		update();
+		
+	}
+
+	public Book getBook(int selectedRow) {
+		return list.get(selectedRow);
 	}
 }
