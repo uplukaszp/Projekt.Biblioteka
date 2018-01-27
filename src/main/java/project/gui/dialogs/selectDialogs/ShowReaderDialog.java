@@ -41,6 +41,7 @@ public class ShowReaderDialog extends JDialog {
 	private ReaderTableModel model;
 	@Autowired
 	public ShowReaderDialog(final ReaderTableModel model) {
+		setModal(true);
 		this.model=model;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

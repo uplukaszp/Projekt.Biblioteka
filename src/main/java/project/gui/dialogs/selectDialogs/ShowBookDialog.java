@@ -17,6 +17,7 @@ import com.mysql.cj.x.protobuf.Mysqlx.OkOrBuilder;
 
 import project.gui.dialogs.updateDialogs.BookDialog;
 import project.gui.tablemodels.BookTableModel;
+import project.model.Book;
 
 import javax.swing.JTable;
 import javax.swing.GroupLayout;
@@ -35,12 +36,13 @@ public class ShowBookDialog extends JDialog {
 	private JButton addButton;
 	private JButton editButton;
 	private JButton okButton;
-	
+	private Book b;
 	@Autowired
 	private BookDialog dialog;
 
 	@Autowired
 	public ShowBookDialog(BookTableModel m) {
+		setModal(true);
 		this.model=m;
 		setBounds(100, 100, 491, 302);
 		getContentPane().setLayout(new BorderLayout());
@@ -123,6 +125,12 @@ public class ShowBookDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						b=model.getBook(table.getSelectedRow());
+						setVisible(false);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -138,5 +146,8 @@ public class ShowBookDialog extends JDialog {
 	{
 		if(visible)model.update();
 		super.setVisible(visible);
+	}
+	public Book getBook() {
+		return b;
 	}
 }

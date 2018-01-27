@@ -89,4 +89,9 @@ public class Book {
 	{
 		return status==BookStatus.lent||status==BookStatus.available;
 	}
+
+	@Override
+	public String toString() {
+		return title + " " + author;
+	}
 }

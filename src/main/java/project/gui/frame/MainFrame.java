@@ -15,6 +15,7 @@ import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.gui.dialogs.selectDialogs.ShowReaderDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.dialogs.updateDialogs.BookDialog;
+import project.gui.dialogs.updateDialogs.LendDialog;
 import project.gui.dialogs.updateDialogs.PublisherDialog;
 import project.gui.dialogs.updateDialogs.ReaderDialog;
 
@@ -45,6 +46,8 @@ public class MainFrame extends JFrame {
 	private ShowReaderDialog showreaddialog;
 	@Autowired
 	private ShowBookDialog showbookdialog;
+	@Autowired
+	private LendDialog lendDialog;
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -133,6 +136,20 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnPrzegldaj.add(mntmKsiki);
+		
+		JMenu mnWypoyczenia = new JMenu("Wypo\u017Cyczenia");
+		menuBar.add(mnWypoyczenia);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Wypo\u017Cycz");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lendDialog.setVisible(true);
+			}
+		});
+		mnWypoyczenia.add(mntmNewMenuItem);
+		
+		JMenuItem mntmPrzegldaj = new JMenuItem("Przegl\u0105daj");
+		mnWypoyczenia.add(mntmPrzegldaj);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

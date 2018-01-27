@@ -53,7 +53,6 @@ public class Reader {
 	}
 	@Override
 	public String toString() {
-		return "Reader [id=" + id + ", forname=" + forname + ", surname=" + surname + ", address=" + address + ", city="
-				+ city + ", zipCode=" + zipCode + ", email=" + email + "]";
+		return forname + " " + surname ;
 	}
 }
