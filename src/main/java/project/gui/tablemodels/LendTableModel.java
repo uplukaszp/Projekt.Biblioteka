@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 import project.model.Lend;
 import project.repositories.LendRepository;
 
-@Component
+@Component("lendTableModel")
 public class LendTableModel extends AbstractTableModel {
 
-	private List<Lend> list;
-	private LendRepository repo;
+	protected List<Lend> list;
+	protected LendRepository repo;
 	SimpleDateFormat f = new SimpleDateFormat("EE dd-MM-yyyy");
 
 	@Autowired
@@ -24,7 +24,7 @@ public class LendTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-
+		
 		return list.size();
 	}
 
@@ -82,4 +82,6 @@ public class LendTableModel extends AbstractTableModel {
 			return "";
 		}
 	}
+
+	
 }

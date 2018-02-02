@@ -33,4 +33,9 @@ public class LendRepository {
 		String sql="update wypozyczenia SET Data_zwrotu=now() where Data_wypozyczenia=?;";
 		jdbcTemplate.update(sql,f.format(l.getLendDate()));
 	}
+
+	public List<Lend> getCurrent() {
+		String sql="SELECT w.Data_wypozyczenia,w.Data_zwrotu,c.Imie,c.Nazwisko,c.Email,k.Tytul,k.ISBN,k.Id_ksiazki,c.Id_czytelnika FROM (wypozyczenia w INNER JOIN czytelnicy c ON w.Id_czytelnika=c.Id_czytelnika)INNER JOIN ksiazki k ON k.Id_ksiazki=w.Id_ksiazki WHERE w.Data_zwrotu is NULL;";
+		return jdbcTemplate.query(sql,new LendMapper());
+	}
 }
