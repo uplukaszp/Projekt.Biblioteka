@@ -60,7 +60,10 @@ public class LendTableModel extends AbstractTableModel {
 	{
 		repo.returnBook(list.get(index));
 	}
-	
+	public Lend getLend(int index)
+	{
+		return list.get(index);
+	}
 	@Override
 	public String getColumnName(int column)
 	{
