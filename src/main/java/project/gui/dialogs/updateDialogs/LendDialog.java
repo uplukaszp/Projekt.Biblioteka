@@ -20,6 +20,7 @@ import project.model.BookStatus;
 import project.model.Lend;
 import project.model.Reader;
 import project.repositories.LendRepository;
+import project.repositories.LendSettingsRepository;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -42,9 +43,10 @@ public class LendDialog extends JDialog {
 	private ShowBookDialog bookdialog;
 	@Autowired
 	private ShowReaderDialog readerdialog;
-
 	@Autowired
 	private LendRepository repo;
+	@Autowired
+	private LendSettingsRepository settings;
 
 	public LendDialog() {
 		setModal(true);
@@ -81,8 +83,8 @@ public class LendDialog extends JDialog {
 						l.setBook(b);
 						bookLabel.setText(l.getBook().toString());
 						return;
-					case lent:
-						JOptionPane.showMessageDialog(null, "Ksi¹¿ka aktualnie wypo¿yczona");
+					case lent:	
+						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wypo¿yczona do: "+repo.dateOfReturn(b.getId()));
 						break;
 					case withdrawn:
 						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wycofana");

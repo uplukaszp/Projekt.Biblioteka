@@ -1,6 +1,7 @@
 package project.repositories;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class LendRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	static SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public void add(Lend l) {
 		
 		String sql = "insert into wypozyczenia (Data_wypozyczenia,Id_ksiazki,Id_czytelnika) values (?,?,?)";
@@ -37,5 +38,18 @@ public class LendRepository {
 	public List<Lend> getCurrent() {
 		String sql="SELECT w.Data_wypozyczenia,w.Data_zwrotu,c.Imie,c.Nazwisko,c.Email,k.Tytul,k.ISBN,k.Id_ksiazki,c.Id_czytelnika FROM (wypozyczenia w INNER JOIN czytelnicy c ON w.Id_czytelnika=c.Id_czytelnika)INNER JOIN ksiazki k ON k.Id_ksiazki=w.Id_ksiazki WHERE w.Data_zwrotu is NULL;";
 		return jdbcTemplate.query(sql,new LendMapper());
+	}
+	public String dateOfReturn(long id)
+	{
+		Date d=null;
+		String sql="Select date_add((Select Data_wypozyczenia from wypozyczenia where Id_ksiazki=? and Data_zwrotu is null),interval Dni_na_oddanie DAY) from opcje;";
+		d=jdbcTemplate.queryForObject(sql,Date.class,id);
+		SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(d);
+	}
+
+	public float getPenalty(Lend l) {
+		String sql="Select  greatest(0,Kara_za_dzien*datediff(now(),date_add((Select Data_wypozyczenia from wypozyczenia where Id_ksiazki=? and Data_zwrotu is null),interval Dni_na_oddanie DAY))) as penalty from opcje;";
+		return jdbcTemplate.queryForObject(sql, Float.class,l.getBook().getId());
 	}
 }

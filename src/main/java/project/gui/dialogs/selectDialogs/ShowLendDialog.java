@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -60,6 +61,11 @@ public class ShowLendDialog extends JDialog {
 				returnButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						LendTableModel temp=(LendTableModel) table.getModel();
+						float penalty=temp.getPenalty(table.getSelectedRow());
+						if(penalty>0)
+						{
+							JOptionPane.showMessageDialog(null, "Przekroczono czas wypo¿yczenia, nale¿y uiœciæ op³atê w wysokoœci:"+penalty);
+						}
 						temp.returnBook(table.getSelectedRow());
 						temp.update();
 						returnButton.setEnabled(false);

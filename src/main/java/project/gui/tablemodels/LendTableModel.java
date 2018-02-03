@@ -24,7 +24,7 @@ public class LendTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		
+
 		return list.size();
 	}
 
@@ -37,7 +37,8 @@ public class LendTableModel extends AbstractTableModel {
 		case 0:
 			return f.format(list.get(rowIndex).getLendDate());
 		case 1:
-			if(list.get(rowIndex).getReturnDate()==null)return "Nie oddano";
+			if (list.get(rowIndex).getReturnDate() == null)
+				return "Nie oddano";
 			return f.format(list.get(rowIndex).getReturnDate());
 		case 2:
 			return list.get(rowIndex).getReader().toString();
@@ -55,33 +56,37 @@ public class LendTableModel extends AbstractTableModel {
 		list = repo.getAll();
 		fireTableDataChanged();
 	}
-	
-	public void returnBook(int index)
-	{
+
+	public void returnBook(int index) {
 		repo.returnBook(list.get(index));
 	}
-	public Lend getLend(int index)
-	{
+
+	public Lend getLend(int index) {
 		return list.get(index);
 	}
+
 	@Override
-	public String getColumnName(int column)
-	{
+	public String getColumnName(int column) {
 		switch (column) {
 		case 0:
-			return  "Data wypo¿yczenia";
+			return "Data wypo¿yczenia";
 		case 1:
-			return  "Data oddania";
+			return "Data oddania";
 		case 2:
-			return  "Wypo¿yczaj¹cy";
+			return "Wypo¿yczaj¹cy";
 		case 3:
-			return 	"Tytu³";
+			return "Tytu³";
 		case 4:
-			return 	"ISBN";
+			return "ISBN";
 		default:
 			return "";
 		}
 	}
 
-	
+	public float getPenalty(int selectedRow) {
+		Lend l = list.get(selectedRow);
+		return repo.getPenalty(l);
+
+	}
+
 }
