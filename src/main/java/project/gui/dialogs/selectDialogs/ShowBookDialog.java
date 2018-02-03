@@ -144,7 +144,10 @@ public class ShowBookDialog extends JDialog {
 	}
 	public void setVisible(boolean visible)
 	{
-		if(visible)model.update();
+		if(visible) {
+			model.update();
+			b=null;
+		}
 		super.setVisible(visible);
 	}
 	public Book getBook() {

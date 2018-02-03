@@ -32,7 +32,7 @@ public class ShowLendDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
-	
+
 	private JButton remindButton;
 	private JButton returnButton;
 
@@ -59,8 +59,11 @@ public class ShowLendDialog extends JDialog {
 				returnButton.setEnabled(false);
 				returnButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						archiveModel.returnBook(table.getSelectedRow());
-						archiveModel.update();
+						LendTableModel temp=(LendTableModel) table.getModel();
+						temp.returnBook(table.getSelectedRow());
+						temp.update();
+						returnButton.setEnabled(false);
+						remindButton.setEnabled(false);
 					}
 				});
 			}
@@ -68,6 +71,7 @@ public class ShowLendDialog extends JDialog {
 			final JCheckBox archChckBox = new JCheckBox("Archiwanle");
 			archChckBox.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
+					
 					if (archChckBox.isSelected()) {
 						table.setModel(archiveModel);
 						archiveModel.update();
@@ -75,8 +79,7 @@ public class ShowLendDialog extends JDialog {
 						table.setModel(model);
 						model.update();
 					}
-					
-					
+
 				}
 			});
 
@@ -101,15 +104,18 @@ public class ShowLendDialog extends JDialog {
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 			public void valueChanged(ListSelectionEvent e) {
-				Lend currentLend = archiveModel.getLend(table.getSelectedRow());
-				if (currentLend.getReturnDate() != null || table.getSelectedRow() == -1) {
-					remindButton.setEnabled(false);
-					returnButton.setEnabled(false);
+				if (table.getSelectedRow() != -1) {
+					LendTableModel temp = (LendTableModel) table.getModel();
+					Lend currentLend = temp.getLend(table.getSelectedRow());
+					if (currentLend.getReturnDate() != null || table.getSelectedRow() == -1) {
+						remindButton.setEnabled(false);
+						returnButton.setEnabled(false);
 
-				} else {
-					remindButton.setEnabled(true);
-					returnButton.setEnabled(true);
+					} else {
+						remindButton.setEnabled(true);
+						returnButton.setEnabled(true);
 
+					}
 				}
 			}
 		});
@@ -118,7 +124,7 @@ public class ShowLendDialog extends JDialog {
 	@Override
 	public void setVisible(boolean visible) {
 		if (visible) {
-			LendTableModel m=(LendTableModel) table.getModel();
+			LendTableModel m = (LendTableModel) table.getModel();
 			m.update();
 		}
 		super.setVisible(visible);

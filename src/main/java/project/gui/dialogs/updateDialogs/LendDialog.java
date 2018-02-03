@@ -33,8 +33,8 @@ import java.awt.event.ActionEvent;
 public class LendDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	
-	private Lend l=new Lend();
+
+	private Lend l = new Lend();
 	private JLabel bookLabel;
 	private JLabel readerLabel;
 
@@ -70,50 +70,55 @@ public class LendDialog extends JDialog {
 		JButton btnWybierz_1 = new JButton("Wybierz");
 		btnWybierz_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				bookdialog.setVisible(true);
-				l.setBook(bookdialog.getBook());
-				bookLabel.setText(l.getBook().toString());
+				while (true) {
+					bookdialog.setVisible(true);
+					Book b = bookdialog.getBook();
+					if (b == null) {
+						break;
+					}
+					switch (b.getStatus()) {
+					case available:
+						l.setBook(b);
+						bookLabel.setText(l.getBook().toString());
+						return;
+					case lent:
+						JOptionPane.showMessageDialog(null, "Ksi¹¿ka aktualnie wypo¿yczona");
+						break;
+					case withdrawn:
+						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wycofana");
+						break;
+					default:
+						break;
+					}
+				}
 			}
 		});
 
 		readerLabel = new JLabel("Brak");
 
 		bookLabel = new JLabel("Brak");
+
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(28)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblWypoyczajcy)
-						.addComponent(lblKsika))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnWybierz)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(readerLabel))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnWybierz_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(bookLabel)))
-					.addContainerGap(111, Short.MAX_VALUE))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblWypoyczajcy)
-						.addComponent(btnWybierz)
-						.addComponent(readerLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblKsika)
-						.addComponent(btnWybierz_1)
-						.addComponent(bookLabel))
-					.addContainerGap(51, Short.MAX_VALUE))
-		);
+		gl_contentPanel
+				.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel.createSequentialGroup().addGap(28)
+								.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+										.addComponent(lblWypoyczajcy).addComponent(lblKsika))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPanel.createSequentialGroup().addComponent(btnWybierz)
+												.addPreferredGap(ComponentPlacement.RELATED).addComponent(readerLabel))
+										.addGroup(gl_contentPanel.createSequentialGroup().addComponent(btnWybierz_1)
+												.addPreferredGap(ComponentPlacement.RELATED).addComponent(bookLabel)))
+								.addContainerGap(111, Short.MAX_VALUE)));
+		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup().addContainerGap()
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblWypoyczajcy)
+								.addComponent(btnWybierz).addComponent(readerLabel))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE).addComponent(lblKsika)
+								.addComponent(btnWybierz_1).addComponent(bookLabel))
+						.addContainerGap(51, Short.MAX_VALUE)));
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
@@ -123,36 +128,33 @@ public class LendDialog extends JDialog {
 			JButton btnWypoyczNastpn = new JButton("Wypo\u017Cycz nast\u0119pn\u0105");
 			btnWypoyczNastpn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (l.getBook().getStatus() == BookStatus.available) {
+					if (!isEmptyData()) {
 						l.setLendDate(new Date(System.currentTimeMillis()));
 						repo.add(l);
-						l.setBook(new Book());
-						bookLabel.setText("");
-						
-					} else if (l.getBook().getStatus() == BookStatus.lent) {
-						JOptionPane.showMessageDialog(null, "Ksi¹¿ka aktualnie wypo¿yczona");
-					} else
-						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wycofana");
+						l.setBook(null);
+						bookLabel.setText("Brak");
+					} else {
+						JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych");
+					}
 				}
 			});
 			buttonPane.add(btnWypoyczNastpn);
 			{
 				JButton okButton = new JButton("Wypo\u017Cycz i zako\u0144cz");
 				okButton.addActionListener(new ActionListener() {
-				
 
 					public void actionPerformed(ActionEvent e) {
-						if (l.getBook().getStatus() == BookStatus.available) {
+						if (!isEmptyData()) {
 							l.setLendDate(new Date(System.currentTimeMillis()));
 							repo.add(l);
-							l=new Lend();
-							bookLabel.setText("");
-							readerLabel.setText("");
+							l = new Lend();
+							bookLabel.setText("Brak");
+							readerLabel.setText("Brak");
 							setVisible(false);
-						} else if (l.getBook().getStatus() == BookStatus.lent) {
-							JOptionPane.showMessageDialog(null, "Ksi¹¿ka aktualnie wypo¿yczona");
-						} else
-							JOptionPane.showMessageDialog(null, "Ksi¹¿ka wycofana");
+						} else {
+							JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych");
+						}
+
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -170,5 +172,9 @@ public class LendDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	private boolean isEmptyData() {
+		return l.getBook() == null || l.getReader() == null;
 	}
 }
