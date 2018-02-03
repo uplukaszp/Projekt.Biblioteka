@@ -8,14 +8,9 @@ import org.springframework.stereotype.Repository;
 public class LendSettingsRepository {
 	private int daysOfRental;
 	private float penaltyForDay;
-	private JdbcTemplate jdbcTemplate;
 	@Autowired
-	public LendSettingsRepository(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate=jdbcTemplate;
-		
-		daysOfRental=jdbcTemplate.queryForObject("SELECT Dni_na_oddanie FROM opcje", Integer.class);
-		penaltyForDay=jdbcTemplate.queryForObject("SELECT Kara_za_dzien FROM opcje", Float.class);
-	}
+	private JdbcTemplate jdbcTemplate;
+
 	public int getDaysOfRental() {
 		return daysOfRental;
 	}

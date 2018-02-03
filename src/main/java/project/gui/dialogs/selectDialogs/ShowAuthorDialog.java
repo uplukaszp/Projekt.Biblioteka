@@ -26,6 +26,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 @Component
 public class ShowAuthorDialog extends JDialog {
@@ -41,12 +43,15 @@ public class ShowAuthorDialog extends JDialog {
 	private AuthorDialog dialog;
 	private JButton editButton;
 	private JButton okButton;
+	private JTextField textField;
+	private JLabel lblZnajd;
+	private JButton cancelButton;
 
 	@Autowired
 	public ShowAuthorDialog(final AuthorTableModel model) {
 		setModal(true);
 		this.model = model;
-		setBounds(100, 100, 470, 300);
+		setBounds(100, 100, 470, 312);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -67,8 +72,39 @@ public class ShowAuthorDialog extends JDialog {
 		});
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			buttonPane.setLayout(new BorderLayout(0, 0));
+			
+			JPanel panel = new JPanel();
+			buttonPane.add(panel, BorderLayout.NORTH);
+			
+			textField = new JTextField();
+			textField.setColumns(10);
+			panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+			
+			lblZnajd = new JLabel("Znajd\u017A: ");
+			panel.add(lblZnajd);
+			panel.add(textField);
+			
+			JButton btnWyszukaj = new JButton("Wyszukaj");
+			btnWyszukaj.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					model.find(textField.getText());
+				}
+			});
+			panel.add(btnWyszukaj);
+			
+			JPanel panel_1 = new JPanel();
+			buttonPane.add(panel_1, BorderLayout.SOUTH);
+			{
+				cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						setVisible(false);
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+			}
 			{
 				okButton = new JButton("OK");
 				okButton.setEnabled(false);
@@ -79,19 +115,11 @@ public class ShowAuthorDialog extends JDialog {
 					}
 				});
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+			panel_1.add(cancelButton);
+			panel_1.add(okButton);
 		}
 		{
 			JPanel panel = new JPanel();

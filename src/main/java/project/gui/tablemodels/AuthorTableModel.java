@@ -75,4 +75,9 @@ public class AuthorTableModel extends AbstractTableModel{
 		list.remove(i);
 		fireTableDataChanged();
 	}
+	public void find(String text) {
+		list=repo.find(text);
+		fireTableDataChanged();
+		
+	}
 }
