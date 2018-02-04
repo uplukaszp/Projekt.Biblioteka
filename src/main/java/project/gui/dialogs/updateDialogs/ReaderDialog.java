@@ -50,23 +50,28 @@ public class ReaderDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-		fornameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}");
+		fornameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}",
+				"Powinno zaczynaæ siê od du¿ej litery\\n i zawieraæ tylko litery");
 		fornameTextField.setColumns(10);
 
-		surnameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}");
+		surnameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}",
+				"Powinno zaczynaæ siê od du¿ej litery\\n i zawieraæ tylko litery");
 		surnameTextField.setColumns(10);
 
-		addressTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿1-9 ]{1,44}");
+		addressTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿1-9 ]{1,44}",
+				"Nazwa ulicy rozpoczynaj¹ca siê od du¿ej litery i nr posesji, np. Lipowa 15(do 45 znaków)");
 		addressTextField.setColumns(10);
 
-		CityTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿ ]{1,44}");
+		CityTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿ ]{1,44}",
+				"Rozpoczyna siê od du¿ej litery( nie wiecej ni¿ 45 znaków)");
 		CityTextField.setColumns(10);
 
-		zipCodeTextField = new PatternTextField("\\\\d{2}-\\\\d{3}");
+		zipCodeTextField = new PatternTextField("\\\\d{2}-\\\\d{3}", "Kod pocztowy np. 42-800");
 		zipCodeTextField.setColumns(10);
 
 		emailTextField = new PatternTextField(
-				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+				"Adres email w formacie nazwa@host.pl");
 		emailTextField.setColumns(10);
 
 		JLabel lblImi = new JLabel("Imi\u0119");
@@ -139,8 +144,7 @@ public class ReaderDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						for (java.awt.Component component : contentPanel.getComponents()) {
-							if(component.getBackground().equals(Color.red))
-							{
+							if (component.getBackground().equals(Color.red)) {
 								JOptionPane.showMessageDialog(null, "Z³e dane");
 								return;
 							}

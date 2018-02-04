@@ -48,18 +48,22 @@ public class PublisherDialog extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		nameTextField = new PatternTextField(".{1,44}");
+		nameTextField = new PatternTextField(".{1,44}", "Nie pusty ciπg znakÛw o d≥ugoúci 45 znakÛw");
 		nameTextField.setColumns(10);
-		AdressTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø1-9 ]{1,44}");
+		AdressTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø1-9 ]{1,44}",
+				"Nazwa ulicy rozpoczynajπca siÍ od duøej litery i nr posesji, np. Lipowa 15(do 45 znakÛw)");
 		AdressTextField.setColumns(10);
-		CityTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø ]{1,44}");
+		CityTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø ]{1,44}",
+				"Rozpoczyna siÍ od duøej litery( nie wiecej niø 45 znakÛw)");
 		CityTextField.setColumns(10);
-		zipCodeTextField = new PatternTextField("\\d{2}-\\d{3}");
+		zipCodeTextField = new PatternTextField("\\d{2}-\\d{3}", "Kod pocztowy np. 42-800");
 		zipCodeTextField.setColumns(10);
-		phoneTextField = new PatternTextField("^(?:\\(?\\+?\\d\\d)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$");
+		phoneTextField = new PatternTextField("^(?:\\(?\\+?\\d\\d)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$",
+				"9-cio cyfrowy nr poprzedzony nr kierunkowym,odzielony spacjπ lub - np +48 617 025 111");
 		phoneTextField.setColumns(10);
 		emailTextField = new PatternTextField(
-				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
+				"Adres email w formacie nazwa@host.pl");
 		emailTextField.setColumns(10);
 
 		JLabel lblNazwa = new JLabel("Nazwa");

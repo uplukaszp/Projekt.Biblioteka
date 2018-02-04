@@ -49,15 +49,15 @@ public class AuthorDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			
-			fornameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}");
+			fornameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}","Powinno zaczynaæ siê od du¿ej litery\n i zawieraæ tylko litery");
 			fornameTextField.setColumns(10);
 		}
 		{
-			surnameTextfield = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}");
+			surnameTextfield = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}","Powinno zaczynaæ siê od du¿ej liter\n i zawieraæ tylko litery");
 			surnameTextfield.setColumns(10);
 		}
 		{
-			commentArea = new PatternTextField(".{0,120}");
+			commentArea = new PatternTextField(".{0,120}","Dowolny ci¹g znaków, nie d³u¿szy ni¿ 120 symboli");
 		}
 
 		JLabel lbforname = new JLabel("Imi\u0119");

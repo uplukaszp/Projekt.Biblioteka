@@ -66,21 +66,23 @@ public class BookDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-		titleTextField = new PatternTextField(".{1,120}");
+		titleTextField = new PatternTextField(".{1,120}", "Dowolny nie pusty ciπg znakÛw, nie d≥uøszy niø 120 symboli");
 		titleTextField.setColumns(10);
 
-		yearTextField = new PatternTextField("^[12][0-9]{3}$");
+		yearTextField = new PatternTextField("^[12][0-9]{3}$", "Rok z przedzia≥u 1000-2099");
 		yearTextField.setColumns(10);
 
 		isbnTextField = new PatternTextField(
-				"^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$");
+				"^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$",
+				"Dowolny zapis ISBN-10 lub ISBN-13");
 		isbnTextField.setColumns(10);
 
-		keyWordsTextField = new PatternTextField(".{0,255}");
+		keyWordsTextField = new PatternTextField(".{0,255}", "Opcjonalne(do 255 znakÛw)");
 
 		keyWordsTextField.setColumns(10);
 
-		typeTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{0,45}");
+		typeTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{0,45}",
+				"Dowolny nie pusty ciπg znakÛw(do 45 znakÛw)");
 		typeTextField.setColumns(10);
 
 		JLabel lblTytu = new JLabel("Tytu\u0142");
