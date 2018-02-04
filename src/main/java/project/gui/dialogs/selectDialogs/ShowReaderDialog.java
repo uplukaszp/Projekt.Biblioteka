@@ -25,6 +25,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 @Component
 public class ShowReaderDialog extends JDialog {
@@ -39,6 +41,11 @@ public class ShowReaderDialog extends JDialog {
 	private ReaderDialog dialog;
 
 	private ReaderTableModel model;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JLabel lblNewLabel;
+	private JTextField textField;
+	private JButton btnNewButton;
 	@Autowired
 	public ShowReaderDialog(final ReaderTableModel model) {
 		setModal(true);
@@ -64,10 +71,51 @@ public class ShowReaderDialog extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
+				buttonPane.setLayout(new BorderLayout(0, 0));
+			}
+			{
+				panel_1 = new JPanel();
+				FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+				flowLayout.setAlignment(FlowLayout.LEFT);
+				buttonPane.add(panel_1, BorderLayout.NORTH);
+				{
+					lblNewLabel = new JLabel("Znajd\u017A");
+					panel_1.add(lblNewLabel);
+				}
+				{
+					textField = new JTextField();
+					panel_1.add(textField);
+					textField.setColumns(10);
+				}
+				{
+					btnNewButton = new JButton("Wyszukaj");
+					btnNewButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							model.find(textField.getText());
+						}
+					});
+					panel_1.add(btnNewButton);
+				}
+			}
+			{
+				panel_2 = new JPanel();
+				FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+				flowLayout.setAlignment(FlowLayout.RIGHT);
+				buttonPane.add(panel_2, BorderLayout.SOUTH);
+				{
+					JButton cancelButton = new JButton("Cancel");
+					panel_2.add(cancelButton);
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							setVisible(false);
+						}
+					});
+					cancelButton.setActionCommand("Cancel");
+				}
 				okButton = new JButton("OK");
+				panel_2.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 				
 					public void actionPerformed(ActionEvent e) {
@@ -77,18 +125,7 @@ public class ShowReaderDialog extends JDialog {
 				});
 				okButton.setEnabled(false);
 				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						setVisible(false);
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 		{
