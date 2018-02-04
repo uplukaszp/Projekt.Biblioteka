@@ -21,7 +21,7 @@ public class PublisherRepository {
 
 	public Publisher getById(long id) {
 		String sql = "SELECT w.Id_wydawnictwa,w.Nazwa,w.Adres,w.Miejscowosc,w.Kod_pocztowy,w.Telefon,w.Email FROM wydawnictwo w WHERE Id_wydawnictwa=?";
-		return jdbcTemplate.queryForObject(sql, new PublisherMapper(),id);
+		return jdbcTemplate.queryForObject(sql, new PublisherMapper(), id);
 	}
 
 	public void addPublisher(Publisher publisher) {
@@ -40,5 +40,11 @@ public class PublisherRepository {
 
 	public void deletePublisher(Publisher publisher) {
 		jdbcTemplate.update("DELETE FROM wydawnictwo WHERE Id_wydawnictwa=?", publisher.getId());
+	}
+
+	public List<Publisher> find(String text) {
+		text = "%" + text + "%";
+		String sql = "SELECT w.Id_wydawnictwa,w.Nazwa,w.Adres,w.Miejscowosc,w.Kod_pocztowy,w.Telefon,w.Email FROM wydawnictwo w WHERE w.Nazwa LIKE ? OR w.Adres LIKE ?  OR w.Miejscowosc LIKE ?  OR w.Kod_pocztowy LIKE ? OR  w.Telefon LIKE ? OR  w.Email  LIKE ?";
+		return jdbcTemplate.query(sql, new PublisherMapper(), text, text, text, text, text, text);
 	}
 }

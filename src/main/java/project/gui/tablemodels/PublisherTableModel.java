@@ -12,26 +12,27 @@ import project.repositories.PublisherRepository;
 
 @Component
 public class PublisherTableModel extends AbstractTableModel {
-	
+
 	private PublisherRepository repo;
 	private List<Publisher> list;
-	
+
 	@Autowired
 	public PublisherTableModel(PublisherRepository repo) {
-		this.repo=repo;
+		this.repo = repo;
 	}
+
 	public int getRowCount() {
-		
+
 		return list.size();
 	}
 
 	public int getColumnCount() {
-		
+
 		return 6;
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		
+
 		switch (columnIndex) {
 		case 0:
 			return list.get(rowIndex).getName();
@@ -49,12 +50,12 @@ public class PublisherTableModel extends AbstractTableModel {
 			return "";
 		}
 	}
-	public void update()
-	{
-		list=repo.getall();
+
+	public void update() {
+		list = repo.getall();
 		fireTableDataChanged();
 	}
-	
+
 	@Override
 	public String getColumnName(int column) {
 		switch (column) {
@@ -74,14 +75,20 @@ public class PublisherTableModel extends AbstractTableModel {
 			return "";
 		}
 	}
+
 	public Publisher getPublisher(int selectedRow) {
 		return list.get(selectedRow);
-		
+
 	}
-	public void removePublisher(int selectedRow)
-	{
+
+	public void removePublisher(int selectedRow) {
 		repo.deletePublisher(list.get(selectedRow));
 		list.remove(selectedRow);
+		fireTableDataChanged();
+	}
+
+	public void find(String text) {
+		list = repo.find(text);
 		fireTableDataChanged();
 	}
 }
