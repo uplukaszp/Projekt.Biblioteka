@@ -14,9 +14,15 @@ import project.repositories.BookRepository;
 @Component
 public class BookTableModel extends AbstractTableModel {
 
-	@Autowired
 	BookRepository repo;
 	private List<Book> list;
+
+	@Autowired
+	public BookTableModel(BookRepository repo) {
+		super();
+		this.repo = repo;
+		update();
+	}
 
 	public int getRowCount() {
 		return list.size();

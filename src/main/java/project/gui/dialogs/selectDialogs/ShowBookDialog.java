@@ -59,6 +59,7 @@ public class ShowBookDialog extends JDialog {
 		{
 			table = new JTable();
 			table.setModel(model);
+			table.setAutoCreateRowSorter(true);
 			contentPanel.add(table, BorderLayout.CENTER);
 			contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
 		}

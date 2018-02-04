@@ -1,6 +1,7 @@
 package project.gui.dialogs.updateDialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.JTextField;
+
+import project.gui.components.PatternTextField;
 import project.model.Author;
 import project.repositories.AuthorRepository;
 
@@ -19,6 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -27,9 +31,9 @@ import java.awt.event.ActionEvent;
 public class AuthorDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField fornameTextField;
-	private JTextField surnameTextfield;
-	private JTextArea commentArea;
+	private PatternTextField fornameTextField;
+	private PatternTextField surnameTextfield;
+	private PatternTextField commentArea;
 	private Author a = new Author();
 
 	@Autowired
@@ -44,15 +48,16 @@ public class AuthorDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			fornameTextField = new JTextField();
+			
+			fornameTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{1,44}");
 			fornameTextField.setColumns(10);
 		}
 		{
-			surnameTextfield = new JTextField();
+			surnameTextfield = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{1,44}");
 			surnameTextfield.setColumns(10);
 		}
 		{
-			commentArea = new JTextArea();
+			commentArea = new PatternTextField(".{0,120}");
 		}
 
 		JLabel lbforname = new JLabel("Imi\u0119");
@@ -96,7 +101,12 @@ public class AuthorDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-
+						for (java.awt.Component component : contentPanel.getComponents()) {
+							if (component.getBackground().equals(Color.red)) {
+								JOptionPane.showMessageDialog(null, "Z≥e dane");
+								return;
+							}
+						}
 						a.setForename(fornameTextField.getText());
 						a.setSurname(surnameTextfield.getText());
 						a.setComment(commentArea.getText());
@@ -129,6 +139,9 @@ public class AuthorDialog extends JDialog {
 	}
 
 	public void setData(Author a) {
+		fornameTextField.clear();
+		surnameTextfield.clear();
+		commentArea.clear();
 		fornameTextField.setText(a.getForename());
 		surnameTextfield.setText(a.getSurname());
 		commentArea.setText(a.getComment());

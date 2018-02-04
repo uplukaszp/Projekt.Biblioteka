@@ -1,6 +1,7 @@
 package project.gui.dialogs.updateDialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project.gui.components.PatternTextField;
 import project.model.Publisher;
 import project.model.Reader;
 import project.repositories.ReaderRepository;
@@ -20,6 +22,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -27,12 +31,12 @@ import java.awt.event.ActionEvent;
 public class ReaderDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField fornameTextField;
-	private JTextField surnameTextField;
-	private JTextField addressTextField;
-	private JTextField CityTextField;
-	private JTextField zipCodeTextField;
-	private JTextField emailTextField;
+	private PatternTextField fornameTextField;
+	private PatternTextField surnameTextField;
+	private PatternTextField addressTextField;
+	private PatternTextField CityTextField;
+	private PatternTextField zipCodeTextField;
+	private PatternTextField emailTextField;
 
 	@Autowired
 	private ReaderRepository repo;
@@ -46,22 +50,23 @@ public class ReaderDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-		fornameTextField = new JTextField();
+		fornameTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{1,44}");
 		fornameTextField.setColumns(10);
 
-		surnameTextField = new JTextField();
+		surnameTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{1,44}");
 		surnameTextField.setColumns(10);
 
-		addressTextField = new JTextField();
+		addressTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø1-9 ]{1,44}");
 		addressTextField.setColumns(10);
 
-		CityTextField = new JTextField();
+		CityTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø ]{1,44}");
 		CityTextField.setColumns(10);
 
-		zipCodeTextField = new JTextField();
+		zipCodeTextField = new PatternTextField("\\\\d{2}-\\\\d{3}");
 		zipCodeTextField.setColumns(10);
 
-		emailTextField = new JTextField();
+		emailTextField = new PatternTextField(
+				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
 		emailTextField.setColumns(10);
 
 		JLabel lblImi = new JLabel("Imi\u0119");
@@ -133,6 +138,13 @@ public class ReaderDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						for (java.awt.Component component : contentPanel.getComponents()) {
+							if(component.getBackground().equals(Color.red))
+							{
+								JOptionPane.showMessageDialog(null, "Z≥e dane");
+								return;
+							}
+						}
 						r.setAddress(addressTextField.getText());
 						r.setCity(CityTextField.getText());
 						r.setEmail(emailTextField.getText());

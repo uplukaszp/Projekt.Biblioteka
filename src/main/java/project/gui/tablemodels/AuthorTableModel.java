@@ -19,7 +19,9 @@ public class AuthorTableModel extends AbstractTableModel{
 	
 	@Autowired
 	public AuthorTableModel(AuthorRepository repo) {
+		super();
 		this.repo=repo;
+		update();
 	}
 	public int getRowCount() {
 		

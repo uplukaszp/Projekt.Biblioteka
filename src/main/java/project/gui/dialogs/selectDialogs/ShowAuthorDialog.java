@@ -24,6 +24,8 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -58,11 +60,13 @@ public class ShowAuthorDialog extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 
 		table = new JTable();
+
 		contentPanel.add(table, BorderLayout.CENTER);
 		contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
 		table.setModel(model);
+		table.setAutoCreateRowSorter(true);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
+			
 			public void valueChanged(ListSelectionEvent e) {
 
 				deleteButton.setEnabled(table.getSelectedRow() != -1);
@@ -170,7 +174,6 @@ public class ShowAuthorDialog extends JDialog {
 							.addContainerGap(76, Short.MAX_VALUE)));
 			panel.setLayout(gl_panel);
 		}
-		
 	}
 
 	@Override

@@ -89,4 +89,9 @@ public class LendTableModel extends AbstractTableModel {
 
 	}
 
+	public void find(String text) {
+		list = repo.find(text);
+		fireTableDataChanged();
+	}
+
 }

@@ -27,6 +27,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.FlowLayout;
 
 @Component
 public class ShowLendDialog extends JDialog {
@@ -36,6 +39,10 @@ public class ShowLendDialog extends JDialog {
 
 	private JButton remindButton;
 	private JButton returnButton;
+	private JPanel panel_1;
+	private JLabel lblNewLabel;
+	private JTextField textField;
+	private JButton btnNewButton;
 
 	@Autowired
 	public ShowLendDialog(@Qualifier("lendTableModel") final LendTableModel archiveModel,
@@ -60,11 +67,11 @@ public class ShowLendDialog extends JDialog {
 				returnButton.setEnabled(false);
 				returnButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						LendTableModel temp=(LendTableModel) table.getModel();
-						float penalty=temp.getPenalty(table.getSelectedRow());
-						if(penalty>0)
-						{
-							JOptionPane.showMessageDialog(null, "Przekroczono czas wypo¿yczenia, nale¿y uiœciæ op³atê w wysokoœci:"+penalty);
+						LendTableModel temp = (LendTableModel) table.getModel();
+						float penalty = temp.getPenalty(table.getSelectedRow());
+						if (penalty > 0) {
+							JOptionPane.showMessageDialog(null,
+									"Przekroczono czas wypo¿yczenia, nale¿y uiœciæ op³atê w wysokoœci:" + penalty);
 						}
 						temp.returnBook(table.getSelectedRow());
 						temp.update();
@@ -77,7 +84,7 @@ public class ShowLendDialog extends JDialog {
 			final JCheckBox archChckBox = new JCheckBox("Archiwanle");
 			archChckBox.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
-					
+
 					if (archChckBox.isSelected()) {
 						table.setModel(archiveModel);
 						archiveModel.update();
@@ -106,6 +113,30 @@ public class ShowLendDialog extends JDialog {
 							.addPreferredGap(ComponentPlacement.RELATED).addComponent(remindButton).addGap(18)
 							.addComponent(archChckBox).addContainerGap(60, Short.MAX_VALUE)));
 			panel.setLayout(gl_panel);
+		}
+		{
+			panel_1 = new JPanel();
+			getContentPane().add(panel_1, BorderLayout.SOUTH);
+			panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+			{
+				lblNewLabel = new JLabel("Znajd\u017A: ");
+				panel_1.add(lblNewLabel);
+			}
+			{
+				textField = new JTextField();
+				panel_1.add(textField);
+				textField.setColumns(10);
+			}
+			{
+				btnNewButton = new JButton("Wyszukaj");
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						LendTableModel m = (LendTableModel) table.getModel();
+						m.find(textField.getText());
+					}
+				});
+				panel_1.add(btnNewButton);
+			}
 		}
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
