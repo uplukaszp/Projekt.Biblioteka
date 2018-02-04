@@ -34,8 +34,8 @@ public class BookTableModel extends AbstractTableModel {
 		case 1:
 			return list.get(rowIndex).getAuthor();
 		case 2:
-			SimpleDateFormat f=new SimpleDateFormat("YYYY");
-			String year=f.format(list.get(rowIndex).getPublicationDate());
+			SimpleDateFormat f = new SimpleDateFormat("YYYY");
+			String year = f.format(list.get(rowIndex).getPublicationDate());
 			return year;
 		case 3:
 			return list.get(rowIndex).getPublisher();
@@ -56,10 +56,10 @@ public class BookTableModel extends AbstractTableModel {
 			}
 		case 7:
 			return list.get(rowIndex).getKeywords();
-			
+
 		default:
 			return "";
-			
+
 		}
 	}
 
@@ -69,19 +69,19 @@ public class BookTableModel extends AbstractTableModel {
 			return "Tytu³";
 		case 1:
 			return "Autor";
-		case 2: 
+		case 2:
 			return "Rok wydania";
-		case 3: 
+		case 3:
 			return "Wydawnictwo";
-		case 4: 
+		case 4:
 			return "ISBN";
-		case 5: 
+		case 5:
 			return "Gatunek";
-		case 6: 
+		case 6:
 			return "Dostêpnoœæ";
-		case 7: 
+		case 7:
 			return "S³owa kluczowe";
-				
+
 		default:
 			return "";
 		}
@@ -95,10 +95,15 @@ public class BookTableModel extends AbstractTableModel {
 	public void removeBook(int selectedRow) {
 		repo.removeBook(list.get(selectedRow));
 		update();
-		
+
 	}
 
 	public Book getBook(int selectedRow) {
 		return list.get(selectedRow);
+	}
+
+	public void find(String text) {
+		list = repo.find(text);
+		fireTableDataChanged();
 	}
 }
