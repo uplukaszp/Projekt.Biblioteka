@@ -1,32 +1,41 @@
 package project.main;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import project.config.AppConfig;
-import project.gui.dialogs.updateDialogs.AuthorDialog;
-import project.gui.dialogs.updateDialogs.BookDialog;
-import project.gui.dialogs.updateDialogs.PublisherDialog;
-import project.gui.dialogs.updateDialogs.ReaderDialog;
+import project.gui.dialogs.settingsDialogs.ConnectionDialog;
 import project.gui.frame.MainFrame;
-import project.model.Book;
-import project.model.Publisher;
-import project.model.Reader;
-import project.repositories.BookRepository;
-import project.repositories.PublisherRepository;
-import project.repositories.ReaderRepository;
 
 public class Main {
 
 	private static ApplicationContext context;
 
 	public static void main(String[] args) {
-		context = new AnnotationConfigApplicationContext(AppConfig.class);
+		System.out.println("Start app");
+		try {
+			context = new AnnotationConfigApplicationContext(AppConfig.class);
+			System.out.println("after context get");
+			// test connection
 
-		// test connection
-		
-		MainFrame frame = context.getBean(MainFrame.class);
-		frame.setVisible(true);
-
+			MainFrame frame = context.getBean(MainFrame.class);
+			frame.setVisible(true);
+		} catch (Exception e) {
+			ConnectionDialog con = new ConnectionDialog();
+			con.setVisible(true);
+			String message = "";
+			if (e instanceof SQLException) {
+				message = "B³êdne dane logowania";
+			} else if (e instanceof IOException) {
+				message = "Brak danych logowania";
+			} else
+				message = e.getLocalizedMessage();
+			JOptionPane.showMessageDialog(null, message);
+		}
 	}
 }

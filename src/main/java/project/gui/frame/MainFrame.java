@@ -15,6 +15,7 @@ import project.gui.dialogs.selectDialogs.ShowBookDialog;
 import project.gui.dialogs.selectDialogs.ShowLendDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.gui.dialogs.selectDialogs.ShowReaderDialog;
+import project.gui.dialogs.settingsDialogs.ConnectionDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.dialogs.updateDialogs.BookDialog;
 import project.gui.dialogs.updateDialogs.LendDialog;
@@ -52,7 +53,9 @@ public class MainFrame extends JFrame {
 	private LendDialog lendDialog;
 	@Autowired
 	private ShowLendDialog showLendDialog;
-
+	@Autowired
+	private ConnectionDialog connectiondialog;
+	
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -70,6 +73,14 @@ public class MainFrame extends JFrame {
 			}
 
 		});
+		
+		JMenuItem mntmUstawieniaPoczenia = new JMenuItem("Ustawienia po\u0142\u0105czenia");
+		mntmUstawieniaPoczenia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				connectiondialog.setVisible(true);
+			}
+		});
+		mnProgram.add(mntmUstawieniaPoczenia);
 		mnProgram.add(mntmZakocz);
 
 		JMenu mnDodaj = new JMenu("Dodaj");
