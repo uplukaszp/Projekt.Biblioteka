@@ -14,6 +14,7 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Component;
 
 import project.gui.components.PatternTextField;
+import project.gui.components.PatternVerifier;
 import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.model.Author;
@@ -57,6 +58,7 @@ public class BookDialog extends JDialog {
 	private Book b = new Book();
 	private JLabel authlabel;
 	private JLabel publisherLabel;
+	protected PatternVerifier verifier;
 
 	public BookDialog() {
 		setModal(true);
@@ -186,12 +188,8 @@ public class BookDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						for (java.awt.Component component : contentPanel.getComponents()) {
-							if (component.getBackground().equals(Color.red)) {
-								JOptionPane.showMessageDialog(null, "Z³e dane");
-								return;
-							}
-						}
+						if (!verifier.areFieldsMatched())
+							return;
 						SimpleDateFormat formatter = new SimpleDateFormat("YYYY");
 						try {
 							java.util.Date date = formatter.parse(yearTextField.getText());
@@ -226,6 +224,7 @@ public class BookDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		verifier=new PatternVerifier(contentPanel.getComponents());
 	}
 
 	public void setBook(Book b) {

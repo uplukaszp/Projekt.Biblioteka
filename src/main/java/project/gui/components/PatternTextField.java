@@ -11,19 +11,16 @@ public class PatternTextField extends JTextField {
 
 	JTextField myfield;
 	Color c;
-	
+	String regex;
 	public PatternTextField(final String regex,String toolTip) {
 		myfield = this;
+		this.regex=regex;
 		c = myfield.getBackground();
 		this.addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
-				if (!myfield.getText().matches(regex)) {
-					myfield.setBackground(new Color(255, 0, 0));
-				} else
-					myfield.setBackground(c);
+				isPropriety();
 			}
-
 			public void focusGained(FocusEvent e) {
 
 			}
@@ -41,5 +38,15 @@ public class PatternTextField extends JTextField {
 	public void clear() {
 		myfield.setBackground(c);
 	}
-
+	public boolean isPropriety() {
+		
+		if (!myfield.getText().matches(regex)) {
+			myfield.setBackground(new Color(255, 0, 0));
+			return false;
+		} else
+			myfield.setBackground(c);
+		return true;
+	
+	}
+	
 }

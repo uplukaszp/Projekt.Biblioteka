@@ -16,6 +16,7 @@ import project.gui.dialogs.selectDialogs.ShowLendDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.gui.dialogs.selectDialogs.ShowReaderDialog;
 import project.gui.dialogs.settingsDialogs.ConnectionDialog;
+import project.gui.dialogs.settingsDialogs.LendSettingsDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.dialogs.updateDialogs.BookDialog;
 import project.gui.dialogs.updateDialogs.LendDialog;
@@ -55,6 +56,8 @@ public class MainFrame extends JFrame {
 	private ShowLendDialog showLendDialog;
 	@Autowired
 	private ConnectionDialog connectiondialog;
+	@Autowired
+	private LendSettingsDialog lendsettingsdialog;
 	
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -171,6 +174,14 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnWypoyczenia.add(mntmPrzegldaj);
+		
+		JMenuItem mntmOpcje = new JMenuItem("Opcje");
+		mntmOpcje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lendsettingsdialog.setVisible(true);
+			}
+		});
+		mnWypoyczenia.add(mntmOpcje);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));

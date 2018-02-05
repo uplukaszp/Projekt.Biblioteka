@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project.gui.components.PatternTextField;
+import project.gui.components.PatternVerifier;
 import project.model.Author;
 import project.model.Publisher;
 import project.repositories.PublisherRepository;
@@ -40,6 +41,7 @@ public class PublisherDialog extends JDialog {
 	private PatternTextField phoneTextField;
 	private PatternTextField emailTextField;
 	private Publisher p = new Publisher();
+	protected PatternVerifier verifier;
 
 	public PublisherDialog() {
 		setModal(true);
@@ -133,12 +135,8 @@ public class PublisherDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						for (java.awt.Component component : contentPanel.getComponents()) {
-							if (component.getBackground().equals(Color.red)) {
-								JOptionPane.showMessageDialog(null, "Z³e dane");
-								return;
-							}
-						}
+						if (!verifier.areFieldsMatched())
+							return;
 						p.setAddress(AdressTextField.getText());
 						p.setCity(CityTextField.getText());
 						p.setEmail(emailTextField.getText());
@@ -171,6 +169,7 @@ public class PublisherDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		verifier=new PatternVerifier(contentPanel.getComponents());
 	}
 
 	public void setData(Publisher p) {

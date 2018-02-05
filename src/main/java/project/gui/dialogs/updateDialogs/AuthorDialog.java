@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.swing.JTextField;
 
 import project.gui.components.PatternTextField;
+import project.gui.components.PatternVerifier;
 import project.model.Author;
 import project.repositories.AuthorRepository;
 
@@ -38,6 +39,7 @@ public class AuthorDialog extends JDialog {
 
 	@Autowired
 	private AuthorRepository repo;
+	protected PatternVerifier verifier;
 
 	public AuthorDialog() {
 		setModal(true);
@@ -101,12 +103,8 @@ public class AuthorDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						for (java.awt.Component component : contentPanel.getComponents()) {
-							if (component.getBackground().equals(Color.red)) {
-								JOptionPane.showMessageDialog(null, "Z³e dane");
-								return;
-							}
-						}
+						if (!verifier.areFieldsMatched())
+							return;
 						a.setForename(fornameTextField.getText());
 						a.setSurname(surnameTextfield.getText());
 						a.setComment(commentArea.getText());
@@ -135,7 +133,7 @@ public class AuthorDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-
+		verifier=new PatternVerifier(contentPanel.getComponents());
 	}
 
 	public void setData(Author a) {
