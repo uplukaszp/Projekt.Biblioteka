@@ -1,6 +1,5 @@
 package project.repositories;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -11,8 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import project.model.Book;
 import project.model.Lend;
 import project.model.Reader;
-import project.repositories.mappers.BookMapper;
-import project.repositories.mappers.ReaderMapper;
 
 public class LendMapper implements RowMapper<Lend> {
 	static SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

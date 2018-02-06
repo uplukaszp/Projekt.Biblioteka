@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import project.gui.components.EmailSenderService;
 import project.gui.tablemodels.CurrentLendTableModel;
 import project.gui.tablemodels.LendTableModel;
 import project.model.Lend;
@@ -43,7 +44,10 @@ public class ShowLendDialog extends JDialog {
 	private JLabel lblNewLabel;
 	private JTextField textField;
 	private JButton btnNewButton;
-
+	
+	@Autowired
+	EmailSenderService sender;
+	
 	@Autowired
 	public ShowLendDialog(@Qualifier("lendTableModel") final LendTableModel archiveModel,
 			@Qualifier("currentLendTableModel") final CurrentLendTableModel model) {
@@ -97,6 +101,12 @@ public class ShowLendDialog extends JDialog {
 			});
 
 			remindButton = new JButton("Przypomnij");
+			remindButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					LendTableModel model=(LendTableModel) table.getModel();
+					sender.sendNotify(model.getLend(table.getSelectedRow()));					
+				}
+			});
 			remindButton.setEnabled(false);
 			GroupLayout gl_panel = new GroupLayout(panel);
 			gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,

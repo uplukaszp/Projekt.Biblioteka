@@ -16,7 +16,7 @@ public class Main {
 
 	private static ApplicationContext context;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("Start app");
 		try {
 			context = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -34,6 +34,7 @@ public class Main {
 			} else if (e instanceof IOException) {
 				message = "Brak danych logowania";
 			} else
+				throw e;
 				message = e.getLocalizedMessage();
 			JOptionPane.showMessageDialog(null, message);
 		}

@@ -1,4 +1,5 @@
 *.properties
+*lst
 # Compiled class file
 *.class
 
