@@ -1,4 +1,4 @@
-config.properties
+*.properties
 # Compiled class file
 *.class
 
