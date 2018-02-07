@@ -16,6 +16,7 @@ import project.gui.dialogs.selectDialogs.ShowLendDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
 import project.gui.dialogs.selectDialogs.ShowReaderDialog;
 import project.gui.dialogs.settingsDialogs.ConnectionDialog;
+import project.gui.dialogs.settingsDialogs.EmailSettingsDialog;
 import project.gui.dialogs.settingsDialogs.LendSettingsDialog;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.dialogs.updateDialogs.BookDialog;
@@ -28,6 +29,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 @Component
 public class MainFrame extends JFrame {
@@ -58,6 +61,8 @@ public class MainFrame extends JFrame {
 	private ConnectionDialog connectiondialog;
 	@Autowired
 	private LendSettingsDialog lendsettingsdialog;
+	@Autowired
+	private EmailSettingsDialog emailsettingsdialog;
 	
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,6 +89,17 @@ public class MainFrame extends JFrame {
 			}
 		});
 		mnProgram.add(mntmUstawieniaPoczenia);
+		
+		JMenuItem mntmUstawieniaPoczty = new JMenuItem("Ustawienia poczty");
+		mntmUstawieniaPoczty.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				emailsettingsdialog.setVisible(true);
+			}
+		});
+		mnProgram.add(mntmUstawieniaPoczty);
+		
+		JSeparator separator = new JSeparator();
+		mnProgram.add(separator);
 		mnProgram.add(mntmZakocz);
 
 		JMenu mnDodaj = new JMenu("Dodaj");
@@ -181,6 +197,9 @@ public class MainFrame extends JFrame {
 				lendsettingsdialog.setVisible(true);
 			}
 		});
+		
+		JSeparator separator_1 = new JSeparator();
+		mnWypoyczenia.add(separator_1);
 		mnWypoyczenia.add(mntmOpcje);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

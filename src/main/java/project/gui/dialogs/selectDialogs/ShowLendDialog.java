@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import project.gui.components.EmailSenderService;
+import project.gui.dialogs.settingsDialogs.EmailSettingsDialog;
 import project.gui.tablemodels.CurrentLendTableModel;
 import project.gui.tablemodels.LendTableModel;
 import project.model.Lend;
@@ -31,6 +33,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
+import java.awt.SplashScreen;
 
 @Component
 public class ShowLendDialog extends JDialog {
@@ -44,16 +47,36 @@ public class ShowLendDialog extends JDialog {
 	private JLabel lblNewLabel;
 	private JTextField textField;
 	private JButton btnNewButton;
-	
+
 	@Autowired
 	EmailSenderService sender;
-	
+
+	private JPanel panel_2;
+	private JProgressBar progressBar;
+
 	@Autowired
 	public ShowLendDialog(@Qualifier("lendTableModel") final LendTableModel archiveModel,
 			@Qualifier("currentLendTableModel") final CurrentLendTableModel model) {
 		setModal(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
+		{
+			panel_2 = new JPanel();
+			getContentPane().add(panel_2, BorderLayout.CENTER);
+			{
+				progressBar = new JProgressBar();
+			}
+			GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+			gl_panel_2.setHorizontalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
+					gl_panel_2.createSequentialGroup().addContainerGap(82, Short.MAX_VALUE)
+							.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+							.addGap(68)));
+			gl_panel_2.setVerticalGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel_2.createSequentialGroup().addGap(92)
+							.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(103, Short.MAX_VALUE)));
+			panel_2.setLayout(gl_panel_2);
+		}
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -103,8 +126,10 @@ public class ShowLendDialog extends JDialog {
 			remindButton = new JButton("Przypomnij");
 			remindButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					LendTableModel model=(LendTableModel) table.getModel();
-					sender.sendNotify(model.getLend(table.getSelectedRow()));					
+					LendTableModel model = (LendTableModel) table.getModel();
+
+					sender.sendNotify(model.getLend(table.getSelectedRow()));
+
 				}
 			});
 			remindButton.setEnabled(false);
