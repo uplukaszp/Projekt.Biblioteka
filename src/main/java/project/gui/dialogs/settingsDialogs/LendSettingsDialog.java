@@ -39,6 +39,7 @@ public class LendSettingsDialog extends JDialog {
 
 	public LendSettingsDialog() {
 		setModal(true);
+		setTitle("Opcje wypo¿yczeñ");
 		setBounds(100, 100, 329, 166);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

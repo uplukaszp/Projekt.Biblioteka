@@ -21,6 +21,7 @@ public class LendTableModel extends AbstractTableModel {
 	@Autowired
 	public LendTableModel(LendRepository repo) {
 		this.repo = repo;
+		update();
 	}
 
 	public int getRowCount() {

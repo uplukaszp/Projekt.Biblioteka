@@ -39,7 +39,10 @@ public class ConnectionDialog extends JDialog {
 	private JTextField nameTextField;
 
 	public ConnectionDialog() {
-		setBounds(100, 100, 232, 302);
+		setResizable(false);
+		setModal(true);
+		setBounds(100, 100, 259, 301);
+		setTitle("Ustawienia po³¹czenia z baz¹");
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

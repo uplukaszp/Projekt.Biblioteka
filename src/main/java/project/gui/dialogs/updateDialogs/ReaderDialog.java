@@ -46,18 +46,19 @@ public class ReaderDialog extends JDialog {
 
 	public ReaderDialog() {
 		setModal(true);
+		setTitle("Dodaj czytelnika");
 		setResizable(false);
-		setBounds(100, 100, 229, 302);
+		setBounds(100, 100, 249, 302);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
 		fornameTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{1,44}",
-				"Powinno zaczynaÊ siÍ od duøej litery\\n i zawieraÊ tylko litery");
+				"Zaczyna siÍ z duøej litery\\\\n i zawiera tylko litery");
 		fornameTextField.setColumns(10);
 
 		surnameTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{1,44}",
-				"Powinno zaczynaÊ siÍ od duøej litery\\n i zawieraÊ tylko litery");
+				"Zaczyna siÍ z duøej litery\\n i zawiera tylko litery");
 		surnameTextField.setColumns(10);
 
 		addressTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø1-9 ]{1,44}",
@@ -88,54 +89,56 @@ public class ReaderDialog extends JDialog {
 
 		JLabel lblEmail = new JLabel("Email");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup().addGap(10)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING).addComponent(lblImi)
-								.addComponent(lblNazwisko).addComponent(lblAdres).addComponent(lblMiejscowo)
-								.addComponent(lblKodPocztowy).addComponent(lblEmail))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(fornameTextField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 120,
-										Short.MAX_VALUE)
-								.addComponent(surnameTextField, Alignment.TRAILING)
-								.addComponent(addressTextField, Alignment.TRAILING)
-								.addComponent(CityTextField, Alignment.TRAILING)
-								.addComponent(zipCodeTextField, Alignment.TRAILING)
-								.addComponent(emailTextField, Alignment.TRAILING))
-						.addGap(2)));
-		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+		gl_contentPanel.setHorizontalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(fornameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblImi))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(surnameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNazwisko))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(addressTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAdres))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(CityTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblMiejscowo))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(zipCodeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblKodPocztowy))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(
-								gl_contentPanel.createParallelGroup(Alignment.BASELINE, false)
-										.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblEmail))
-						.addGap(70)));
+					.addContainerGap(38, Short.MAX_VALUE)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblImi)
+						.addComponent(lblNazwisko)
+						.addComponent(lblAdres)
+						.addComponent(lblMiejscowo)
+						.addComponent(lblKodPocztowy)
+						.addComponent(lblEmail))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(fornameTextField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(surnameTextField, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+						.addComponent(addressTextField, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+						.addComponent(CityTextField, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+						.addComponent(zipCodeTextField, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+						.addComponent(emailTextField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(28))
+		);
+		gl_contentPanel.setVerticalGroup(
+			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(fornameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblImi))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(surnameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNazwisko))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(addressTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAdres))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(CityTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMiejscowo))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(zipCodeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblKodPocztowy))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE, false)
+						.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblEmail))
+					.addContainerGap(69, Short.MAX_VALUE))
+		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();

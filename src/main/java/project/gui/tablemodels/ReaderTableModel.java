@@ -14,11 +14,15 @@ import project.repositories.ReaderRepository;
 @Component
 public class ReaderTableModel extends AbstractTableModel {
 
-	@Autowired
 	private ReaderRepository repo;
 	private List<Reader> list;
 
-	
+	@Autowired
+	public ReaderTableModel(ReaderRepository repo) {
+		super();
+		this.repo=repo;
+		update();
+	}
 	public int getRowCount() {
 		return list.size();
 

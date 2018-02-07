@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project.gui.components.ToolTipTable;
 import project.gui.dialogs.updateDialogs.PublisherDialog;
 import project.gui.tablemodels.PublisherTableModel;
 import project.model.Publisher;
@@ -25,6 +26,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
 @Component
 public class ShowPublisherDialog extends JDialog {
@@ -47,10 +49,12 @@ public class ShowPublisherDialog extends JDialog {
 	private JLabel lblZnajd;
 	private JTextField textField;
 	private JButton btnWyszukaj;
+	private JScrollPane scrollPane;
 
 	@Autowired
 	public ShowPublisherDialog(final PublisherTableModel model) {
 		setModal(true);
+		setTitle("Przegl¹daj wydawnictwa");
 		this.model = model;
 		setBounds(100, 100, 486, 299);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,10 +62,13 @@ public class ShowPublisherDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			table = new JTable();
-			table.setModel(model);
+			table = new ToolTipTable(model);
 			contentPanel.add(table, BorderLayout.CENTER);
 			contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+			{
+				scrollPane = new JScrollPane(table);
+				contentPanel.add(scrollPane, BorderLayout.CENTER);
+			}
 			{
 				JPanel panel = new JPanel();
 				contentPanel.add(panel, BorderLayout.EAST);
@@ -151,6 +158,11 @@ public class ShowPublisherDialog extends JDialog {
 				buttonPane.add(panel_2, BorderLayout.SOUTH);
 				{
 					JButton cancelButton = new JButton("Cancel");
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							setVisible(false);
+						}
+					});
 					panel_2.add(cancelButton);
 					cancelButton.setActionCommand("Cancel");
 				}

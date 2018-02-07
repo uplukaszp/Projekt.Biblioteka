@@ -41,21 +41,9 @@ public class EmailSettingsDialog extends JDialog {
 	private PatternTextField portTextField;
 	private PatternVerifier verifier;
 
-	public static void main(String[] args) {
-		try {
-			EmailSettingsDialog dialog = new EmailSettingsDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
 	public EmailSettingsDialog() {
 		setModal(true);
+		setTitle("Ustawienia poczty email");
 		setBounds(100, 100, 228, 299);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

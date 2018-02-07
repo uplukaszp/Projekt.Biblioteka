@@ -43,6 +43,7 @@ public class AuthorDialog extends JDialog {
 
 	public AuthorDialog() {
 		setModal(true);
+		setTitle("Dodaj autora");
 		setResizable(false);
 
 		setBounds(100, 100, 241, 297);

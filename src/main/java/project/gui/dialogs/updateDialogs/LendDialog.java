@@ -49,6 +49,7 @@ public class LendDialog extends JDialog {
 	private LendSettingsRepository settings;
 
 	public LendDialog() {
+		setTitle("Wypo¿ycz");
 		setModal(true);
 		setResizable(false);
 		setBounds(100, 100, 434, 189);

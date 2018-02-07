@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project.gui.components.ToolTipTable;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.tablemodels.AuthorTableModel;
 import project.model.Author;
@@ -48,10 +49,12 @@ public class ShowAuthorDialog extends JDialog {
 	private JTextField textField;
 	private JLabel lblZnajd;
 	private JButton cancelButton;
+	private JScrollPane scrollPane;
 
 	@Autowired
 	public ShowAuthorDialog(final AuthorTableModel model) {
 		setModal(true);
+		setTitle("Przegl¹daj autorów");
 		this.model = model;
 		setBounds(100, 100, 470, 312);
 		getContentPane().setLayout(new BorderLayout());
@@ -59,37 +62,37 @@ public class ShowAuthorDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 
-		table = new JTable();
 
-		contentPanel.add(table, BorderLayout.CENTER);
+
+		table = new ToolTipTable(model);
 		contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		table.setModel(model);
-		table.setAutoCreateRowSorter(true);
+		scrollPane = new JScrollPane(table);
+		contentPanel.add(scrollPane, BorderLayout.CENTER);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
+
 			public void valueChanged(ListSelectionEvent e) {
 
 				deleteButton.setEnabled(table.getSelectedRow() != -1);
 				editButton.setEnabled(table.getSelectedRow() != -1);
-				okButton.setEnabled(table.getSelectedRow()!=-1);
+				okButton.setEnabled(table.getSelectedRow() != -1);
 			}
 		});
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			buttonPane.setLayout(new BorderLayout(0, 0));
-			
+
 			JPanel panel = new JPanel();
 			buttonPane.add(panel, BorderLayout.NORTH);
-			
+
 			textField = new JTextField();
 			textField.setColumns(10);
 			panel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-			
+
 			lblZnajd = new JLabel("Znajd\u017A: ");
 			panel.add(lblZnajd);
 			panel.add(textField);
-			
+
 			JButton btnWyszukaj = new JButton("Wyszukaj");
 			btnWyszukaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -97,7 +100,7 @@ public class ShowAuthorDialog extends JDialog {
 				}
 			});
 			panel.add(btnWyszukaj);
-			
+
 			JPanel panel_1 = new JPanel();
 			buttonPane.add(panel_1, BorderLayout.SOUTH);
 			{

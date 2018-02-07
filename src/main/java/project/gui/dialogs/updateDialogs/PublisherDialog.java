@@ -45,6 +45,7 @@ public class PublisherDialog extends JDialog {
 
 	public PublisherDialog() {
 		setModal(true);
+		setTitle("Dodaj wydawnictwo");
 		setResizable(false);
 		setBounds(100, 100, 235, 298);
 		getContentPane().setLayout(new BorderLayout());

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.mysql.cj.x.protobuf.Mysqlx.OkOrBuilder;
 
+import project.gui.components.ToolTipTable;
 import project.gui.dialogs.updateDialogs.BookDialog;
 import project.gui.tablemodels.BookTableModel;
 import project.model.Book;
@@ -27,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
 @Component
 public class ShowBookDialog extends JDialog {
@@ -46,23 +48,18 @@ public class ShowBookDialog extends JDialog {
 	private JLabel lblNewLabel;
 	private JTextField textField;
 	private JButton btnNewButton;
+	private JScrollPane scrollPane;
 
 	@Autowired
 	public ShowBookDialog(BookTableModel m) {
 		setModal(true);
+		setTitle("Przegl¹daj ksi¹¿ki");
 		this.model = m;
 		setBounds(100, 100, 491, 302);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		{
-			table = new JTable();
-			table.setModel(model);
-			table.setAutoCreateRowSorter(true);
-			contentPanel.add(table, BorderLayout.CENTER);
-			contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-		}
 		{
 			JPanel panel = new JPanel();
 			contentPanel.add(panel, BorderLayout.EAST);
@@ -111,6 +108,15 @@ public class ShowBookDialog extends JDialog {
 							.addPreferredGap(ComponentPlacement.RELATED).addComponent(editButton)
 							.addContainerGap(79, Short.MAX_VALUE)));
 			panel.setLayout(gl_panel);
+			{
+
+			}
+			{
+				table = new ToolTipTable(model);
+				contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+				scrollPane = new JScrollPane(table);
+				contentPanel.add(scrollPane, BorderLayout.CENTER);
+			}
 			table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 				public void valueChanged(ListSelectionEvent e) {

@@ -18,7 +18,9 @@ public class PublisherTableModel extends AbstractTableModel {
 
 	@Autowired
 	public PublisherTableModel(PublisherRepository repo) {
+		super();
 		this.repo = repo;
+		update();
 	}
 
 	public int getRowCount() {

@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project.gui.components.ToolTipTable;
 import project.gui.dialogs.updateDialogs.ReaderDialog;
 import project.gui.tablemodels.ReaderTableModel;
 import project.model.Reader;
@@ -27,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
 @Component
 public class ShowReaderDialog extends JDialog {
@@ -46,9 +48,11 @@ public class ShowReaderDialog extends JDialog {
 	private JLabel lblNewLabel;
 	private JTextField textField;
 	private JButton btnNewButton;
+	private JScrollPane scrollPane;
 	@Autowired
 	public ShowReaderDialog(final ReaderTableModel model) {
 		setModal(true);
+		setTitle("Przegl¹daj czytelników");
 		this.model=model;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -56,10 +60,12 @@ public class ShowReaderDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			table = new JTable();
-			table.setModel(model);
-			contentPanel.add(table, BorderLayout.CENTER);
+			table = new ToolTipTable(model);
 			contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
+			{
+				scrollPane = new JScrollPane(table);
+				contentPanel.add(scrollPane, BorderLayout.CENTER);
+			}
 			table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 				public void valueChanged(ListSelectionEvent e) {

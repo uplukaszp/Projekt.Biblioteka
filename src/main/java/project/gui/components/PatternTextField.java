@@ -13,6 +13,7 @@ public class PatternTextField extends JTextField {
 	Color c;
 	String regex;
 	public PatternTextField(final String regex,String toolTip) {
+		setBackground(Color.WHITE);
 		myfield = this;
 		this.regex=regex;
 		c = myfield.getBackground();
@@ -41,7 +42,7 @@ public class PatternTextField extends JTextField {
 	public boolean isPropriety() {
 		
 		if (!myfield.getText().matches(regex)) {
-			myfield.setBackground(new Color(255, 0, 0));
+			myfield.setBackground(new Color(255, 150, 150));
 			return false;
 		} else
 			myfield.setBackground(c);
