@@ -84,7 +84,7 @@ public class BookDialog extends JDialog {
 
 		keyWordsTextField.setColumns(10);
 
-		typeTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø]{0,45}",
+		typeTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø ]{0,45}",
 				"Dowolny nie pusty ciπg znakÛw(do 45 znakÛw)");
 		typeTextField.setColumns(10);
 
@@ -105,6 +105,7 @@ public class BookDialog extends JDialog {
 		JButton btnNewButton = new JButton("Przegl\u0105daj");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				showauthdialog.setSelectMode(true);
 				showauthdialog.setVisible(true);
 				b.setAuthor(showauthdialog.getAuthor());
 				authlabel.setText(b.getAuthor().getForename());
@@ -115,6 +116,7 @@ public class BookDialog extends JDialog {
 		btnNewButton_1.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
+				showpubdialog.setSelectMode(true);
 				showpubdialog.setVisible(true);
 				b.setPublisher(showpubdialog.getPublisher());
 				publisherLabel.setText(b.getPublisher().getName());
@@ -125,70 +127,64 @@ public class BookDialog extends JDialog {
 
 		publisherLabel = new JLabel("Nie wybrano");
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+		gl_contentPanel.setHorizontalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPanel.createSequentialGroup().addGap(19)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING).addComponent(lblTytu)
+								.addComponent(lblNewLabel).addComponent(lblNewLabel_1).addComponent(lblSowaKluczowe)
+								.addComponent(lblGatunek).addComponent(lblAutor).addComponent(lblWydawnictwo))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_contentPanel.createSequentialGroup().addComponent(btnNewButton_1)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(publisherLabel,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGroup(gl_contentPanel.createSequentialGroup().addComponent(btnNewButton)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(authlabel,
+												GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(titleTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(yearTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(isbnTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(keyWordsTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(typeTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 149,
+												Short.MAX_VALUE)))
+						.addContainerGap(19, Short.MAX_VALUE)));
+		gl_contentPanel.setVerticalGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(19)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblTytu)
-						.addComponent(lblNewLabel)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblSowaKluczowe)
-						.addComponent(lblGatunek)
-						.addComponent(lblAutor)
-						.addComponent(lblWydawnictwo))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnNewButton_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(publisherLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnNewButton)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(authlabel, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(titleTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(yearTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(isbnTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(keyWordsTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(typeTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)))
-					.addContainerGap(19, Short.MAX_VALUE))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(titleTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTytu))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(yearTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(isbnTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(keyWordsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSowaKluczowe))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(typeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblGatunek))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton)
-						.addComponent(lblAutor)
-						.addComponent(authlabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton_1)
-						.addComponent(lblWydawnictwo)
-						.addComponent(publisherLabel))
-					.addContainerGap(48, Short.MAX_VALUE))
-		);
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(titleTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTytu))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(yearTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(isbnTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_1))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(keyWordsTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblSowaKluczowe))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(typeTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblGatunek))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE).addComponent(btnNewButton)
+								.addComponent(lblAutor).addComponent(authlabel))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE).addComponent(btnNewButton_1)
+								.addComponent(lblWydawnictwo).addComponent(publisherLabel))
+						.addContainerGap(48, Short.MAX_VALUE)));
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
@@ -217,8 +213,9 @@ public class BookDialog extends JDialog {
 								repo.addBook(b);
 							else
 								repo.updateBook(b);
-								setVisible(false);
-						} catch (ParseException e1) {}
+							setVisible(false);
+						} catch (ParseException e1) {
+						}
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -236,21 +233,34 @@ public class BookDialog extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		verifier=new PatternVerifier(contentPanel.getComponents());
+		verifier = new PatternVerifier(contentPanel.getComponents());
 	}
 
-	public void setBook(Book b) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(b.getPublicationDate());
+	public void setData(Book b) {
 
 		this.b = b;
 		titleTextField.setText(b.getTitle());
-		yearTextField.setText(String.valueOf(cal.get(Calendar.YEAR)));
+		yearTextField.setText("");
 		isbnTextField.setText(b.getISBN());
 		keyWordsTextField.setText(b.getKeywords());
 		typeTextField.setText(b.getType());
 		authlabel.setText(b.getAuthor().getForename());
 		publisherLabel.setText(b.getPublisher().getName());
 
+		if (b.getPublicationDate() != null) {
+			Calendar cal = null;
+			cal = Calendar.getInstance();
+			cal.setTime(b.getPublicationDate());
+			yearTextField.setText(String.valueOf(cal.get(Calendar.YEAR)));
+		}
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		if (!visible) {
+			setData(new Book());
+			verifier.reset();
+		}
+		super.setVisible(visible);
 	}
 }

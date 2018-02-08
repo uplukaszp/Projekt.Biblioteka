@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import project.gui.components.ToolTipTable;
@@ -27,6 +28,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 
@@ -38,22 +40,24 @@ public class ShowReaderDialog extends JDialog {
 	private JButton deleteButton;
 	private JButton editButton;
 	private JButton okButton;
-	private Reader r=new Reader();
+	private Reader r = new Reader();
 	@Autowired
 	private ReaderDialog dialog;
 
 	private ReaderTableModel model;
 	private JPanel panel_1;
-	private JPanel panel_2;
 	private JLabel lblNewLabel;
 	private JTextField textField;
 	private JButton btnNewButton;
 	private JScrollPane scrollPane;
+	
+	private boolean selectMode=true;
+	private JPanel panel_2;
 	@Autowired
 	public ShowReaderDialog(final ReaderTableModel model) {
 		setModal(true);
 		setTitle("Przegl¹daj czytelników");
-		this.model=model;
+		this.model = model;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -107,8 +111,8 @@ public class ShowReaderDialog extends JDialog {
 			}
 			{
 				panel_2 = new JPanel();
-				FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
-				flowLayout.setAlignment(FlowLayout.RIGHT);
+				FlowLayout fl_panel_2 = (FlowLayout) panel_2.getLayout();
+				fl_panel_2.setAlignment(FlowLayout.RIGHT);
 				buttonPane.add(panel_2, BorderLayout.SOUTH);
 				{
 					JButton cancelButton = new JButton("Cancel");
@@ -123,9 +127,9 @@ public class ShowReaderDialog extends JDialog {
 				okButton = new JButton("OK");
 				panel_2.add(okButton);
 				okButton.addActionListener(new ActionListener() {
-				
+
 					public void actionPerformed(ActionEvent e) {
-						r=model.getReader(table.getSelectedRow());
+						r = model.getReader(table.getSelectedRow());
 						setVisible(false);
 					}
 				});
@@ -141,7 +145,13 @@ public class ShowReaderDialog extends JDialog {
 				deleteButton = new JButton("Usu\u0144");
 				deleteButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						model.removeReader(table.getSelectedRow());
+						try {
+							model.removeReader(table.getSelectedRow());
+						} catch (DataIntegrityViolationException ex) {
+							JOptionPane.showMessageDialog(null,
+									"Nie mo¿na usun¹æ czytelnika, który dokona³ wypo¿yczenia");
+						}
+
 					}
 				});
 				deleteButton.setEnabled(false);
@@ -179,14 +189,21 @@ public class ShowReaderDialog extends JDialog {
 			panel.setLayout(gl_panel);
 		}
 	}
+
 	@Override
 	public void setVisible(boolean visible) {
 		if (visible)
 			model.update();
+		textField.setText("");
+		panel_2.setVisible(selectMode);
 		super.setVisible(visible);
 	}
-	public Reader getReader()
-	{
+
+	public Reader getReader() {
 		return r;
+	}
+
+	public void setSelectMode(boolean selectMode) {
+		this.selectMode = selectMode;
 	}
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import project.gui.components.PatternTextField;
 import project.gui.components.PatternVerifier;
 import project.model.Author;
+import project.model.Book;
 import project.model.Publisher;
 import project.repositories.PublisherRepository;
 
@@ -61,7 +62,7 @@ public class PublisherDialog extends JDialog {
 		CityTextField.setColumns(10);
 		zipCodeTextField = new PatternTextField("\\d{2}-\\d{3}", "Kod pocztowy np. 42-800");
 		zipCodeTextField.setColumns(10);
-		phoneTextField = new PatternTextField("^(?:\\(?\\+?\\d\\d)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$",
+		phoneTextField = new PatternTextField("\\+{0,1}[0-9 ]{6,15}",
 				"9-cio cyfrowy nr poprzedzony nr kierunkowym,odzielony spacj¹ lub - np +48 617 025 111");
 		phoneTextField.setColumns(10);
 		emailTextField = new PatternTextField(
@@ -71,7 +72,7 @@ public class PublisherDialog extends JDialog {
 
 		JLabel lblNazwa = new JLabel("Nazwa");
 
-		JLabel lblNewLabel = new JLabel("Adres");
+		JLabel lblNewLabel = new JLabel("Ulica i nr");
 
 		JLabel lblMiejscowo = new JLabel("Miejscowo\u015B\u0107");
 
@@ -182,5 +183,12 @@ public class PublisherDialog extends JDialog {
 		zipCodeTextField.setText(p.getZipCode());
 		this.p = p;
 	}
-
+	@Override
+	public void setVisible(boolean visible) {
+		if (!visible) {
+			setData(new Publisher());
+			verifier.reset();
+		}
+		super.setVisible(visible);
+	}
 }

@@ -139,9 +139,10 @@ public class ConnectionDialog extends JDialog {
 
 	@Override
 	public void setVisible(boolean visible) {
-		super.setVisible(visible);
 		if (visible)
 			loadProperties();
+		super.setVisible(visible);
+		
 	}
 
 	void loadProperties() {

@@ -34,7 +34,7 @@ public class AuthorDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private PatternTextField fornameTextField;
 	private PatternTextField surnameTextfield;
-	private PatternTextField commentArea;
+	private JTextArea commentArea;
 	private Author a = new Author();
 
 	@Autowired
@@ -56,11 +56,11 @@ public class AuthorDialog extends JDialog {
 			fornameTextField.setColumns(10);
 		}
 		{
-			surnameTextfield = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}","Powinno zaczynaæ siê od du¿ej liter\n i zawieraæ tylko litery");
+			surnameTextfield = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[A-Za-z¹æê³ñóœŸ¿ÆÊ£ÑÓŒ¯\\\\-]{1,44}","Powinno zaczynaæ siê od du¿ej liter\n i zawieraæ tylko litery");
 			surnameTextfield.setColumns(10);
 		}
 		{
-			commentArea = new PatternTextField(".{0,120}","Dowolny ci¹g znaków, nie d³u¿szy ni¿ 120 symboli");
+			commentArea = new JTextArea();
 		}
 
 		JLabel lbforname = new JLabel("Imi\u0119");
@@ -138,12 +138,19 @@ public class AuthorDialog extends JDialog {
 	}
 
 	public void setData(Author a) {
-		fornameTextField.clear();
-		surnameTextfield.clear();
-		commentArea.clear();
 		fornameTextField.setText(a.getForename());
 		surnameTextfield.setText(a.getSurname());
 		commentArea.setText(a.getComment());
 		this.a = a;
+	}
+	@Override
+	public void setVisible(boolean visible)
+	{
+		if(!visible)
+		{
+			setData(new Author());
+			verifier.reset();
+		}
+		super.setVisible(visible);
 	}
 }

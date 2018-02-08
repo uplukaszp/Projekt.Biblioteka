@@ -49,5 +49,8 @@ public class PatternTextField extends JTextField {
 		return true;
 	
 	}
+	public void reset() {
+		myfield.setBackground(c);
+	}
 	
 }

@@ -60,7 +60,7 @@ public class BookRepository {
 				+ "(SELECT count(*)-count(wy.Data_zwrotu) From wypozyczenia wy left join ksiazki k1 on k1.Id_ksiazki=wy.Id_ksiazki where k.Id_ksiazki=k1.Id_ksiazki)as Wypozyczona,\r\n"
 				+ "w.Id_wydawnictwa,w.Adres,w.Email,w.Kod_pocztowy,w.Miejscowosc,w.Nazwa,w.Telefon \r\n"
 				+ "FROM ((ksiazki k INNER JOIN autorzy a ON k.Id_autora=a.Id_autora) INNER JOIN wydawnictwo w ON k.Id_wydawnictwa=w.Id_wydawnictwa)"
-				+ "WHERE k.Tytul LIKE ? OR k.Rok_wydania LIKE ? OR k.ISBN LIKE ? OR k.Slowa_kluczowe LIKE ? OR k.Gatunek LIKE ? OR a.Imie LIKE ? OR a.Nazwisko LIKE ? OR w.Nazwa LIKE ?";
+				+ "WHERE k.Tytul COLLATE utf8_polish_ci LIKE ? OR k.Rok_wydania COLLATE utf8_polish_ci LIKE ? OR k.ISBN COLLATE utf8_polish_ci LIKE ? OR k.Slowa_kluczowe COLLATE utf8_polish_ci LIKE ? OR k.Gatunek COLLATE utf8_polish_ci LIKE ? OR a.Imie COLLATE utf8_polish_ci LIKE ? OR a.Nazwisko COLLATE utf8_polish_ci LIKE ? OR w.Nazwa COLLATE utf8_polish_ci LIKE ?";
 
 		return jdbcTemplate.query(sql, new BookMapper(), text, text, text, text, text, text, text, text);
 	}

@@ -44,7 +44,7 @@ public class PublisherRepository {
 
 	public List<Publisher> find(String text) {
 		text = "%" + text + "%";
-		String sql = "SELECT w.Id_wydawnictwa,w.Nazwa,w.Adres,w.Miejscowosc,w.Kod_pocztowy,w.Telefon,w.Email FROM wydawnictwo w WHERE w.Nazwa LIKE ? OR w.Adres LIKE ?  OR w.Miejscowosc LIKE ?  OR w.Kod_pocztowy LIKE ? OR  w.Telefon LIKE ? OR  w.Email  LIKE ?";
+		String sql = "SELECT w.Id_wydawnictwa,w.Nazwa,w.Adres,w.Miejscowosc,w.Kod_pocztowy,w.Telefon,w.Email FROM wydawnictwo w WHERE w.Nazwa COLLATE utf8_polish_ci LIKE ? OR w.Adres COLLATE utf8_polish_ci LIKE ?  OR w.Miejscowosc COLLATE utf8_polish_ci LIKE ?  OR w.Kod_pocztowy COLLATE utf8_polish_ci LIKE ? OR  w.Telefon COLLATE utf8_polish_ci LIKE ? OR  w.Email  COLLATE utf8_polish_ci LIKE ?";
 		return jdbcTemplate.query(sql, new PublisherMapper(), text, text, text, text, text, text);
 	}
 }

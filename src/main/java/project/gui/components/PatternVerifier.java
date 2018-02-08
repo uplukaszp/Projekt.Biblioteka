@@ -27,4 +27,16 @@ public class PatternVerifier {
 		}
 		return match;
 	}
+
+
+
+	public void reset() {
+		for (Component component : components) {
+			if(component instanceof PatternTextField)
+			{
+				PatternTextField field=(PatternTextField) component;
+				field.reset();
+			}
+		}
+	}
 }

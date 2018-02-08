@@ -13,6 +13,11 @@ public class Book {
 	private Author author;
 	private Publisher publisher;
 
+	public Book()
+	{
+		author=new Author();
+		publisher=new Publisher();
+	}
 	public long getId() {
 		return id;
 	}

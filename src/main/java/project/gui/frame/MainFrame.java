@@ -143,6 +143,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmAutorw = new JMenuItem("Autor\u00F3w");
 		mntmAutorw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				showauthdialog.setSelectMode(false);
 				showauthdialog.setVisible(true);
 			}
 		});
@@ -151,6 +152,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmWydawnictwa = new JMenuItem("Wydawnictwa");
 		mntmWydawnictwa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				showpubdialog.setSelectMode(false);
 				showpubdialog.setVisible(true);
 			}
 		});
@@ -159,6 +161,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmCzytelnikw = new JMenuItem("Czytelnik\u00F3w");
 		mntmCzytelnikw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				showreaddialog.setSelectMode(false);
 				showreaddialog.setVisible(true);
 			}
 		});
@@ -167,6 +170,7 @@ public class MainFrame extends JFrame {
 		JMenuItem mntmKsiki = new JMenuItem("Ksi\u0105\u017Cki");
 		mntmKsiki.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				showbookdialog.setSelectMode(false);
 				showbookdialog.setVisible(true);
 			}
 		});

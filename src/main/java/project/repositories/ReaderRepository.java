@@ -47,7 +47,7 @@ public class ReaderRepository {
 
 	public List<Reader> find(String text) {
 		text = "%" + text + "%";
-		String sql = "SELECT c.Id_czytelnika, c.Imie,c.Nazwisko,c.Adres,c.Miejscowosc,c.Kod_pocztowy,c.Email FROM Czytelnicy c WHERE c.Imie LIKE ? OR c.Nazwisko LIKE ? OR c.Adres LIKE ? OR c.Miejscowosc LIKE ? OR c.Kod_pocztowy LIKE ? OR c.Email LIKE ? ";
+		String sql = "SELECT c.Id_czytelnika, c.Imie,c.Nazwisko,c.Adres,c.Miejscowosc,c.Kod_pocztowy,c.Email FROM Czytelnicy c WHERE c.Imie COLLATE utf8_polish_ci LIKE ? OR c.Nazwisko COLLATE utf8_polish_ci LIKE ? OR c.Adres COLLATE utf8_polish_ci LIKE ? OR c.Miejscowosc COLLATE utf8_polish_ci LIKE ? OR c.Kod_pocztowy COLLATE utf8_polish_ci LIKE ? OR c.Email COLLATE utf8_polish_ci LIKE ? ";
 		return jdbcTemplate.query(sql, new ReaderMapper(), text, text, text, text, text, text);
 
 	}

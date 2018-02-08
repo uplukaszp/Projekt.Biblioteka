@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import project.gui.components.ToolTipTable;
@@ -31,6 +32,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 @Component
 public class ShowAuthorDialog extends JDialog {
@@ -51,6 +53,9 @@ public class ShowAuthorDialog extends JDialog {
 	private JButton cancelButton;
 	private JScrollPane scrollPane;
 
+	private boolean selectMode;
+	private JPanel panel_1;
+
 	@Autowired
 	public ShowAuthorDialog(final AuthorTableModel model) {
 		setModal(true);
@@ -61,8 +66,6 @@ public class ShowAuthorDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-
-
 
 		table = new ToolTipTable(model);
 		contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
@@ -101,7 +104,7 @@ public class ShowAuthorDialog extends JDialog {
 			});
 			panel.add(btnWyszukaj);
 
-			JPanel panel_1 = new JPanel();
+			panel_1 = new JPanel();
 			buttonPane.add(panel_1, BorderLayout.SOUTH);
 			{
 				cancelButton = new JButton("Cancel");
@@ -136,7 +139,11 @@ public class ShowAuthorDialog extends JDialog {
 				deleteButton.setEnabled(false);
 				deleteButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						model.removeAuthor(table.getSelectedRow());
+						try {
+							model.removeAuthor(table.getSelectedRow());
+						} catch (DataIntegrityViolationException ex) {
+							JOptionPane.showMessageDialog(null, "Nie mo¿na usun¹æ autora przypisanego do ksi¹¿ki!");
+						}
 					}
 				});
 				deleteButton.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -183,10 +190,15 @@ public class ShowAuthorDialog extends JDialog {
 	public void setVisible(boolean visible) {
 		if (visible)
 			model.update();
+		panel_1.setVisible(selectMode);
+		textField.setText("");
 		super.setVisible(visible);
 	}
 
 	public Author getAuthor() {
 		return a;
+	}
+	public void setSelectMode(boolean selectMode) {
+		this.selectMode = selectMode;
 	}
 }

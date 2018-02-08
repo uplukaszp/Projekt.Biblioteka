@@ -43,7 +43,7 @@ public class AuthorRepository {
 	public List<Author> find(String text) {
 		text="%"+text+"%";
 		return jdbcTemplate.query(
-				"SELECT a.Id_autora,a.Imie,a.Nazwisko,a.Komentarz FROM autorzy a WHERE a.Imie LIKE ? OR a.Nazwisko  LIKE ? OR a.Komentarz  LIKE ?",
+				"SELECT a.Id_autora,a.Imie,a.Nazwisko,a.Komentarz FROM autorzy a WHERE a.Imie COLLATE utf8_polish_ci LIKE ? OR a.Nazwisko  COLLATE utf8_polish_ci LIKE ? OR a.Komentarz  COLLATE utf8_polish_ci LIKE ?",
 				new AuthorMapper(), text, text, text);
 	}
 }

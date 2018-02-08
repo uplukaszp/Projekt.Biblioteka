@@ -64,8 +64,11 @@ public class LendDialog extends JDialog {
 		JButton btnWybierz = new JButton("Wybierz");
 		btnWybierz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				readerdialog.setSelectMode(true);
 				readerdialog.setVisible(true);
-				l.setReader(readerdialog.getReader());
+				Reader reader = readerdialog.getReader();
+				if(reader.getId()==0)return;
+				l.setReader(reader);
 				readerLabel.setText(l.getReader().toString());
 			}
 		});
@@ -74,9 +77,10 @@ public class LendDialog extends JDialog {
 		btnWybierz_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				while (true) {
+					bookdialog.setSelectMode(true);
 					bookdialog.setVisible(true);
 					Book b = bookdialog.getBook();
-					if (b == null) {
+					if (b.getId() == 0) {
 						break;
 					}
 					switch (b.getStatus()) {
@@ -179,5 +183,20 @@ public class LendDialog extends JDialog {
 
 	private boolean isEmptyData() {
 		return l.getBook() == null || l.getReader() == null;
+	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		if (!visible) {
+			setData(new Lend());
+		}
+		super.setVisible(visible);
+	}
+
+	private void setData(Lend lend) {
+		bookLabel.setText("Brak");
+		readerLabel.setText("Brak");
+		l=lend;
+		
 	}
 }

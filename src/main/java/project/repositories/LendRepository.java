@@ -55,13 +55,13 @@ public class LendRepository {
 	public List<Lend> find(String text) {
 
 		text="%"+text+"%";
-		String sql = "SELECT w.Data_wypozyczenia,w.Data_zwrotu,c.Imie,c.Nazwisko,c.Email,k.Tytul,k.ISBN,k.Id_ksiazki,c.Id_czytelnika FROM (wypozyczenia w INNER JOIN czytelnicy c ON w.Id_czytelnika=c.Id_czytelnika)INNER JOIN ksiazki k ON k.Id_ksiazki=w.Id_ksiazki WHERE w.Data_wypozyczenia LIKE ? OR w.Data_zwrotu LIKE ? OR c.Imie LIKE ? OR c.Nazwisko LIKE ? OR c.Email LIKE ? OR k.Tytul LIKE ? OR k.ISBN LIKE ?;";
-		return jdbcTemplate.query(sql, new LendMapper(),text,text,text,text,text,text,text);
+		String sql = "SELECT w.Data_wypozyczenia,w.Data_zwrotu,c.Imie,c.Nazwisko,c.Email,k.Tytul,k.ISBN,k.Id_ksiazki,c.Id_czytelnika FROM (wypozyczenia w INNER JOIN czytelnicy c ON w.Id_czytelnika=c.Id_czytelnika)INNER JOIN ksiazki k ON k.Id_ksiazki=w.Id_ksiazki WHERE w.Data_wypozyczenia COLLATE utf8_polish_ci LIKE ? OR w.Data_zwrotu COLLATE utf8_polish_ci LIKE ? OR c.Imie COLLATE utf8_polish_ci LIKE ? OR c.Nazwisko COLLATE utf8_polish_ci LIKE ? OR k.Tytul COLLATE utf8_polish_ci LIKE ? OR k.ISBN COLLATE utf8_polish_ci LIKE ?;";
+		return jdbcTemplate.query(sql, new LendMapper(),text,text,text,text,text,text);
 	}
 
 	public List<Lend> findInCurrent(String text) {
 		text="%"+text+"%";
-		String sql = "SELECT w.Data_wypozyczenia,w.Data_zwrotu,c.Imie,c.Nazwisko,c.Email,k.Tytul,k.ISBN,k.Id_ksiazki,c.Id_czytelnika FROM (wypozyczenia w INNER JOIN czytelnicy c ON w.Id_czytelnika=c.Id_czytelnika)INNER JOIN ksiazki k ON k.Id_ksiazki=w.Id_ksiazki WHERE (w.Data_wypozyczenia LIKE ? OR w.Data_zwrotu LIKE ? OR c.Imie LIKE ? OR c.Nazwisko LIKE ? OR c.Email LIKE ? OR k.Tytul LIKE ? OR k.ISBN LIKE ?)AND w.Data_zwrotu is NULL ;";
-		return jdbcTemplate.query(sql, new LendMapper(),text,text,text,text,text,text,text);
+		String sql = "SELECT w.Data_wypozyczenia,w.Data_zwrotu,c.Imie,c.Nazwisko,c.Email,k.Tytul,k.ISBN,k.Id_ksiazki,c.Id_czytelnika FROM (wypozyczenia w INNER JOIN czytelnicy c ON w.Id_czytelnika=c.Id_czytelnika)INNER JOIN ksiazki k ON k.Id_ksiazki=w.Id_ksiazki WHERE (w.Data_wypozyczenia COLLATE utf8_polish_ci LIKE ? OR w.Data_zwrotu COLLATE utf8_polish_ci LIKE ? OR c.Imie COLLATE utf8_polish_ci LIKE ? OR c.Nazwisko COLLATE utf8_polish_ci LIKE ? OR  k.Tytul COLLATE utf8_polish_ci LIKE ? OR k.ISBN COLLATE utf8_polish_ci LIKE ?)AND w.Data_zwrotu is NULL ;";
+		return jdbcTemplate.query(sql, new LendMapper(),text,text,text,text,text,text);
 	}
 }

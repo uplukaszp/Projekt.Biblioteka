@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -17,8 +18,9 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 @ComponentScan(basePackages = "project")
-@PropertySource("file:./config.properties")
-@PropertySource("file:./email.properties")
+@PropertySources({
+@PropertySource("file:./config.properties"),
+@PropertySource("file:./email.properties")})
 public class AppConfig {
 	@Value("${db.login}")
 	String username;
@@ -50,6 +52,7 @@ public class AppConfig {
 		Properties p=new Properties();
 		p.setProperty("useUnicode", "yes");
 		p.setProperty("characterEncoding", "utf8");
+		//p.setProperty("profileSQL", "true");
 		dataSource.setConnectionProperties( p);
 		return dataSource;
 	}

@@ -45,7 +45,7 @@ public class LendSettingsDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-		dayTextField = new PatternTextField("^[1-9]+[0-9]*$", "Liczba dni>0");
+		dayTextField = new PatternTextField("^[1-9]+[0-9]*$", "Liczba dni wiêksza od 0");
 
 		penaltyTextField = new PatternTextField("\\d+\\.\\d{2}|\\d", "Wysokoœæ kary za 1 dzieñ zw³oki, np. 0,80 1,50");
 
@@ -127,6 +127,7 @@ public class LendSettingsDialog extends JDialog {
 		if (visible) {
 			dayTextField.setText(String.valueOf(repo.getDaysOfRental()));
 			penaltyTextField.setText(String.valueOf(repo.getPenaltyForDay()));
+			verifier.reset();
 		}
 		super.setVisible(visible);
 	}

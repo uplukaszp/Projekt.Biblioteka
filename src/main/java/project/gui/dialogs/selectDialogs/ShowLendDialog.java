@@ -95,7 +95,7 @@ public class ShowLendDialog extends JDialog {
 				});
 			}
 
-			final JCheckBox archChckBox = new JCheckBox("Archiwanle");
+			final JCheckBox archChckBox = new JCheckBox("Wszystkie");
 			archChckBox.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 
@@ -183,6 +183,7 @@ public class ShowLendDialog extends JDialog {
 	@Override
 	public void setVisible(boolean visible) {
 		if (visible) {
+			textField.setText("");
 			LendTableModel m = (LendTableModel) table.getModel();
 			m.update();
 		}

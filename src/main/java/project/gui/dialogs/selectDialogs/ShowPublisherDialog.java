@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import project.gui.components.ToolTipTable;
@@ -25,6 +26,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 
@@ -50,6 +52,7 @@ public class ShowPublisherDialog extends JDialog {
 	private JTextField textField;
 	private JButton btnWyszukaj;
 	private JScrollPane scrollPane;
+	private boolean selectMode;
 
 	@Autowired
 	public ShowPublisherDialog(final PublisherTableModel model) {
@@ -63,12 +66,7 @@ public class ShowPublisherDialog extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			table = new ToolTipTable(model);
-			contentPanel.add(table, BorderLayout.CENTER);
 			contentPanel.add(table.getTableHeader(), BorderLayout.PAGE_START);
-			{
-				scrollPane = new JScrollPane(table);
-				contentPanel.add(scrollPane, BorderLayout.CENTER);
-			}
 			{
 				JPanel panel = new JPanel();
 				contentPanel.add(panel, BorderLayout.EAST);
@@ -84,7 +82,11 @@ public class ShowPublisherDialog extends JDialog {
 				deleteButton = new JButton("Usu\u0144");
 				deleteButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						model.removePublisher(table.getSelectedRow());
+						try {
+							model.removePublisher(table.getSelectedRow());
+						} catch (DataIntegrityViolationException ex) {
+							JOptionPane.showMessageDialog(null, "Nie mo¿na usun¹æ wydawnictwa, do którego przypisana jest ksi¹¿ka");
+						}
 					}
 				});
 				deleteButton.setEnabled(false);
@@ -112,12 +114,18 @@ public class ShowPublisherDialog extends JDialog {
 								.addContainerGap(69, Short.MAX_VALUE)));
 				panel.setLayout(gl_panel);
 			}
+			{
+				scrollPane = new JScrollPane(table);
+				contentPanel.add(scrollPane, BorderLayout.CENTER);
+			}
 			table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
 				public void valueChanged(ListSelectionEvent e) {
-					deleteButton.setEnabled(table.getSelectedRow() != -1);
-					editButton.setEnabled(table.getSelectedRow() != -1);
-					okButton.setEnabled(table.getSelectedRow() != -1);
+					boolean b = table.getSelectedRow() != -1;
+					deleteButton.setEnabled(b);
+					editButton.setEnabled(b);
+					okButton.setEnabled(b);
+
 				}
 			});
 		}
@@ -185,11 +193,16 @@ public class ShowPublisherDialog extends JDialog {
 	public void setVisible(boolean visible) {
 		if (visible)
 			model.update();
+		panel_2.setVisible(selectMode);
+		textField.setText("");
 		super.setVisible(visible);
 	}
 
 	public Publisher getPublisher() {
 
 		return p;
+	}
+	public void setSelectMode(boolean selectMode) {
+		this.selectMode = selectMode;
 	}
 }

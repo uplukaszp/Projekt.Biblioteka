@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import project.gui.components.PatternTextField;
 import project.gui.components.PatternVerifier;
+import project.model.Book;
 import project.model.Publisher;
 import project.model.Reader;
 import project.repositories.ReaderRepository;
@@ -57,7 +58,7 @@ public class ReaderDialog extends JDialog {
 				"Zaczyna siê z du¿ej litery\\\\n i zawiera tylko litery");
 		fornameTextField.setColumns(10);
 
-		surnameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿]{1,44}",
+		surnameTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[A-Za-z¹æê³ñóœŸ¿ÆÊ£ÑÓŒ¯\\-]{1,44}",
 				"Zaczyna siê z du¿ej litery\\n i zawiera tylko litery");
 		surnameTextField.setColumns(10);
 
@@ -65,11 +66,11 @@ public class ReaderDialog extends JDialog {
 				"Nazwa ulicy rozpoczynaj¹ca siê od du¿ej litery i nr posesji, np. Lipowa 15(do 45 znaków)");
 		addressTextField.setColumns(10);
 
-		CityTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿ ]{1,44}",
+		CityTextField = new PatternTextField("[A-ZÆÊ£ÑÓŒ¯]{1}[a-z¹æê³ñóœŸ¿A-ZÆÊ£ÑÓŒ¯ ]{1,44}",
 				"Rozpoczyna siê od du¿ej litery( nie wiecej ni¿ 45 znaków)");
 		CityTextField.setColumns(10);
 
-		zipCodeTextField = new PatternTextField("\\\\d{2}-\\\\d{3}", "Kod pocztowy np. 42-800");
+		zipCodeTextField = new PatternTextField("\\d{2}-\\d{3}", "Kod pocztowy np. 42-800");
 		zipCodeTextField.setColumns(10);
 
 		emailTextField = new PatternTextField(
@@ -81,7 +82,7 @@ public class ReaderDialog extends JDialog {
 
 		JLabel lblNazwisko = new JLabel("Nazwisko");
 
-		JLabel lblAdres = new JLabel("Adres");
+		JLabel lblAdres = new JLabel("Ulica i nr");
 
 		JLabel lblMiejscowo = new JLabel("Miejscowo\u015B\u0107");
 
@@ -193,5 +194,13 @@ public class ReaderDialog extends JDialog {
 		surnameTextField.setText(r.getSurname());
 		zipCodeTextField.setText(r.getZipCode());
 		this.r = r;
+	}
+	@Override
+	public void setVisible(boolean visible) {
+		if (!visible) {
+			setData(new Reader());
+			verifier.reset();
+		}
+		super.setVisible(visible);
 	}
 }

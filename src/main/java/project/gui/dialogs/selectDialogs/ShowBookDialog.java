@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import com.mysql.cj.x.protobuf.Mysqlx.OkOrBuilder;
@@ -27,6 +28,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 
@@ -40,7 +42,7 @@ public class ShowBookDialog extends JDialog {
 	private JButton addButton;
 	private JButton editButton;
 	private JButton okButton;
-	private Book b;
+	private Book b=new Book();
 	@Autowired
 	private BookDialog dialog;
 	private JPanel panel_1;
@@ -49,7 +51,7 @@ public class ShowBookDialog extends JDialog {
 	private JTextField textField;
 	private JButton btnNewButton;
 	private JScrollPane scrollPane;
-
+	private boolean selectMode=true;
 	@Autowired
 	public ShowBookDialog(BookTableModel m) {
 		setModal(true);
@@ -67,7 +69,11 @@ public class ShowBookDialog extends JDialog {
 				deleteButton = new JButton("Usu\u0144");
 				deleteButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						model.removeBook(table.getSelectedRow());
+						try {
+							model.removeBook(table.getSelectedRow());
+						} catch (DataIntegrityViolationException ex) {
+							JOptionPane.showMessageDialog(null, "Nie mo¿na usun¹æ ksi¹¿ki, która zosta³a chocia¿ raz wypo¿yczona");
+						}
 					}
 				});
 				deleteButton.setEnabled(false);
@@ -84,7 +90,7 @@ public class ShowBookDialog extends JDialog {
 			editButton = new JButton("Edytuj");
 			editButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					dialog.setBook(model.getBook(table.getSelectedRow()));
+					dialog.setData(model.getBook(table.getSelectedRow()));
 					dialog.setVisible(true);
 					model.update();
 				}
@@ -164,6 +170,11 @@ public class ShowBookDialog extends JDialog {
 				buttonPane.add(panel_2, BorderLayout.SOUTH);
 				{
 					JButton cancelButton = new JButton("Cancel");
+					cancelButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							setVisible(false);
+						}
+					});
 					panel_2.add(cancelButton);
 					cancelButton.setActionCommand("Cancel");
 				}
@@ -183,12 +194,16 @@ public class ShowBookDialog extends JDialog {
 
 	public void setVisible(boolean visible) {
 		if (visible) {
+			textField.setText("");
 			model.update();
-			b = null;
+			panel_2.setVisible(selectMode);
+			b = new Book();
 		}
 		super.setVisible(visible);
 	}
-
+	public void setSelectMode(boolean selectMode) {
+		this.selectMode = selectMode;
+	}
 	public Book getBook() {
 		return b;
 	}
