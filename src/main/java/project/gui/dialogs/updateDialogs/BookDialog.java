@@ -1,7 +1,6 @@
 package project.gui.dialogs.updateDialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -10,27 +9,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Component;
 
 import project.gui.components.PatternTextField;
 import project.gui.components.PatternVerifier;
 import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
 import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
-import project.model.Author;
 import project.model.Book;
 import project.model.BookStatus;
-import project.model.Publisher;
-import project.repositories.AuthorRepository;
 import project.repositories.BookRepository;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -84,7 +76,7 @@ public class BookDialog extends JDialog {
 
 		keyWordsTextField.setColumns(10);
 
-		typeTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø ]{0,45}",
+		typeTextField = new PatternTextField("[A-Z∆ £—”åèØ]{1}[a-zπÊÍ≥ÒÛúüø \\,\\-]{0,45}",
 				"Dowolny nie pusty ciπg znakÛw(do 45 znakÛw)");
 		typeTextField.setColumns(10);
 

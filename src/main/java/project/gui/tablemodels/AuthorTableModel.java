@@ -2,7 +2,6 @@ package project.gui.tablemodels;
 
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;

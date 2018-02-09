@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import project.gui.components.EmailSenderService;
 import project.gui.components.ToolTipTable;
-import project.gui.dialogs.settingsDialogs.EmailSettingsDialog;
 import project.gui.tablemodels.CurrentLendTableModel;
 import project.gui.tablemodels.LendTableModel;
 import project.model.Lend;
@@ -34,7 +32,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
-import java.awt.SplashScreen;
 import javax.swing.JScrollPane;
 
 @Component

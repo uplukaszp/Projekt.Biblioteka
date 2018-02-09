@@ -1,7 +1,6 @@
 package project.gui.dialogs.settingsDialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -20,8 +19,6 @@ import project.repositories.LendSettingsRepository;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

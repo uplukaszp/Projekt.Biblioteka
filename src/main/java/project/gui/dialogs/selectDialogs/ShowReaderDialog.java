@@ -1,7 +1,6 @@
 package project.gui.dialogs.selectDialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -20,7 +19,6 @@ import project.gui.dialogs.updateDialogs.ReaderDialog;
 import project.gui.tablemodels.ReaderTableModel;
 import project.model.Reader;
 
-import java.awt.GridBagLayout;
 import javax.swing.JTable;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;

@@ -3,8 +3,6 @@ package project.gui.dialogs.updateDialogs;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Component;
 import project.gui.dialogs.selectDialogs.ShowBookDialog;
 import project.gui.dialogs.selectDialogs.ShowReaderDialog;
 import project.model.Book;
-import project.model.BookStatus;
 import project.model.Lend;
 import project.model.Reader;
 import project.repositories.LendRepository;
@@ -45,8 +42,6 @@ public class LendDialog extends JDialog {
 	private ShowReaderDialog readerdialog;
 	@Autowired
 	private LendRepository repo;
-	@Autowired
-	private LendSettingsRepository settings;
 
 	public LendDialog() {
 		setTitle("Wypo¿ycz");

@@ -1,7 +1,6 @@
 package project.gui.dialogs.updateDialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -14,18 +13,13 @@ import org.springframework.stereotype.Component;
 
 import project.gui.components.PatternTextField;
 import project.gui.components.PatternVerifier;
-import project.model.Author;
-import project.model.Book;
 import project.model.Publisher;
 import project.repositories.PublisherRepository;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

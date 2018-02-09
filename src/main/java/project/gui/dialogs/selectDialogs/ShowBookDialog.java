@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
-import com.mysql.cj.x.protobuf.Mysqlx.OkOrBuilder;
-
 import project.gui.components.ToolTipTable;
 import project.gui.dialogs.updateDialogs.BookDialog;
 import project.gui.tablemodels.BookTableModel;

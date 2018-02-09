@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.FieldRetrievingFactoryBean;
 import org.springframework.stereotype.Component;
 
 import project.model.Reader;

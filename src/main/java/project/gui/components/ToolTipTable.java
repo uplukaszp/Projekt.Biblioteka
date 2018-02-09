@@ -5,9 +5,9 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -20,7 +20,8 @@ public class ToolTipTable extends JTable {
 		this.setAutoResizeMode(AUTO_RESIZE_OFF);
 		((DefaultTableCellRenderer)getTableHeader().getDefaultRenderer())
 	    .setHorizontalAlignment(JLabel.LEFT);
-		
+		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
 	}
 	public ToolTipTable()
 	{

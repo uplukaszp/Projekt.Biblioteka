@@ -18,16 +18,12 @@ import project.gui.components.ToolTipTable;
 import project.gui.dialogs.updateDialogs.AuthorDialog;
 import project.gui.tablemodels.AuthorTableModel;
 import project.model.Author;
-import project.repositories.AuthorRepository;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;

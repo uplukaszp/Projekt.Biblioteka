@@ -1,8 +1,6 @@
 package project.gui.frame;
 
 import java.awt.BorderLayout;
-import java.awt.Window;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -30,7 +28,6 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 @Component
 public class MainFrame extends JFrame {
@@ -67,7 +64,7 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-
+		setTitle("Biblioteka");
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 

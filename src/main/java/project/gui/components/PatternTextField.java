@@ -1,11 +1,9 @@
 package project.gui.components;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.JTextField;
-import javax.swing.JToolTip;
 
 public class PatternTextField extends JTextField {
 
