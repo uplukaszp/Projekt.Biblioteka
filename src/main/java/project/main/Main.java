@@ -3,13 +3,10 @@ package project.main;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import project.config.AppConfig;
-import project.gui.dialogs.settingsDialogs.ConnectionDialog;
 import project.gui.frame.MainFrame;
 
 public class Main {
@@ -26,17 +23,20 @@ public class Main {
 			MainFrame frame = context.getBean(MainFrame.class);
 			frame.setVisible(true);
 		} catch (Exception e) {
-			ConnectionDialog con = new ConnectionDialog();
-			con.setVisible(true);
+
 			String message = "";
 			if (e instanceof SQLException) {
 				message = "B³êdne dane logowania";
 			} else if (e instanceof IOException) {
 				message = "Brak danych logowania";
-			} else
-				throw e;
+			} else {
+				
+			/*	ConnectionDialog con = new ConnectionDialog();
+				con.setVisible(true);
 				message = e.getLocalizedMessage();
-			JOptionPane.showMessageDialog(null, message);
+				JOptionPane.showMessageDialog(null, message);*/
+				throw e;
+			}
 		}
 	}
 }

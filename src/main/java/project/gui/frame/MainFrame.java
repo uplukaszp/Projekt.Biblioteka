@@ -8,19 +8,17 @@ import javax.swing.border.EmptyBorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import project.gui.dialogs.selectDialogs.ShowAuthorDialog;
-import project.gui.dialogs.selectDialogs.ShowBookDialog;
+import project.gui.dialogs.selectDialogs.ShowAbstractDialog;
 import project.gui.dialogs.selectDialogs.ShowLendDialog;
-import project.gui.dialogs.selectDialogs.ShowPublisherDialog;
-import project.gui.dialogs.selectDialogs.ShowReaderDialog;
 import project.gui.dialogs.settingsDialogs.ConnectionDialog;
 import project.gui.dialogs.settingsDialogs.EmailSettingsDialog;
 import project.gui.dialogs.settingsDialogs.LendSettingsDialog;
-import project.gui.dialogs.updateDialogs.AuthorDialog;
-import project.gui.dialogs.updateDialogs.BookDialog;
+import project.gui.dialogs.updateDialogs.AbstractDialog;
 import project.gui.dialogs.updateDialogs.LendDialog;
-import project.gui.dialogs.updateDialogs.PublisherDialog;
-import project.gui.dialogs.updateDialogs.ReaderDialog;
+import project.model.Author;
+import project.model.Book;
+import project.model.Publisher;
+import project.model.Reader;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -35,22 +33,23 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 
 	@Autowired
-	private AuthorDialog authdialog;
+	private AbstractDialog<Author>  authdialog;
 	@Autowired
-	private ReaderDialog readdialog;
+	private AbstractDialog<Reader>  readdialog;
 	@Autowired
-	private PublisherDialog publidialog;
+	private AbstractDialog<Publisher> publidialog;
 	@Autowired
-	private BookDialog bookdialog;
+	private AbstractDialog<Book> bookdialog;
 	@Autowired
-	private ShowAuthorDialog showauthdialog;
+	private ShowAbstractDialog<Author> showauthdialog;
 	@Autowired
-	private ShowPublisherDialog showpubdialog;
+	private ShowAbstractDialog<Publisher> showpubdialog;
 	@Autowired
-	private ShowReaderDialog showreaddialog;
+	private ShowAbstractDialog<Reader> showreaddialog;
 	@Autowired
-	private ShowBookDialog showbookdialog;
+	private ShowAbstractDialog<Book> showbookdialog;
 	@Autowired
+	
 	private LendDialog lendDialog;
 	@Autowired
 	private ShowLendDialog showLendDialog;

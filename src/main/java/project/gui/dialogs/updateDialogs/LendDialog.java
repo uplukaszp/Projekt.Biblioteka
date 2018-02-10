@@ -17,8 +17,6 @@ import project.model.Book;
 import project.model.Lend;
 import project.model.Reader;
 import project.repositories.LendRepository;
-import project.repositories.LendSettingsRepository;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -61,7 +59,7 @@ public class LendDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				readerdialog.setSelectMode(true);
 				readerdialog.setVisible(true);
-				Reader reader = readerdialog.getReader();
+				Reader reader = readerdialog.getData();
 				if(reader.getId()==0)return;
 				l.setReader(reader);
 				readerLabel.setText(l.getReader().toString());
@@ -74,7 +72,7 @@ public class LendDialog extends JDialog {
 				while (true) {
 					bookdialog.setSelectMode(true);
 					bookdialog.setVisible(true);
-					Book b = bookdialog.getBook();
+					Book b = bookdialog.getData();
 					if (b.getId() == 0) {
 						break;
 					}

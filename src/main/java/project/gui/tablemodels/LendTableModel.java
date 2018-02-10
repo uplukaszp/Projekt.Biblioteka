@@ -3,8 +3,6 @@ package project.gui.tablemodels;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +10,7 @@ import project.model.Lend;
 import project.repositories.LendRepository;
 
 @Component("lendTableModel")
-public class LendTableModel extends AbstractTableModel {
+public class LendTableModel extends MyAbstractTableModel<Lend> {
 
 	protected List<Lend> list;
 	protected LendRepository repo;
@@ -62,7 +60,7 @@ public class LendTableModel extends AbstractTableModel {
 		repo.returnBook(list.get(index));
 	}
 
-	public Lend getLend(int index) {
+	public Lend getData(int index) {
 		return list.get(index);
 	}
 
@@ -93,6 +91,11 @@ public class LendTableModel extends AbstractTableModel {
 	public void find(String text) {
 		list = repo.find(text);
 		fireTableDataChanged();
+	}
+
+	@Override
+	public void removeData(int index) {
+		
 	}
 
 }

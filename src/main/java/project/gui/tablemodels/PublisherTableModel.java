@@ -2,7 +2,6 @@ package project.gui.tablemodels;
 
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import project.model.Publisher;
 import project.repositories.PublisherRepository;
 
 @Component
-public class PublisherTableModel extends AbstractTableModel {
+public class PublisherTableModel extends MyAbstractTableModel<Publisher> {
 
 	private PublisherRepository repo;
 	private List<Publisher> list;
@@ -78,12 +77,12 @@ public class PublisherTableModel extends AbstractTableModel {
 		}
 	}
 
-	public Publisher getPublisher(int selectedRow) {
+	public Publisher getData(int selectedRow) {
 		return list.get(selectedRow);
 
 	}
 
-	public void removePublisher(int selectedRow) {
+	public void removeData(int selectedRow) {
 		repo.deletePublisher(list.get(selectedRow));
 		list.remove(selectedRow);
 		fireTableDataChanged();
@@ -93,4 +92,5 @@ public class PublisherTableModel extends AbstractTableModel {
 		list = repo.find(text);
 		fireTableDataChanged();
 	}
+
 }

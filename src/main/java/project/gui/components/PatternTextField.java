@@ -10,45 +10,50 @@ public class PatternTextField extends JTextField {
 	JTextField myfield;
 	Color c;
 	String regex;
-	public PatternTextField(final String regex,String toolTip) {
+
+	public PatternTextField(final String regex, String toolTip) {
 		setBackground(Color.WHITE);
 		myfield = this;
-		this.regex=regex;
+		this.regex = regex;
 		c = myfield.getBackground();
 		this.addFocusListener(new FocusListener() {
 
 			public void focusLost(FocusEvent e) {
 				isPropriety();
 			}
+
 			public void focusGained(FocusEvent e) {
 
 			}
 		});
 		this.setToolTipText(toolTip);
 	}
-	public PatternTextField(String regex)
-	{
-		this(regex,"");
+
+	public PatternTextField(String regex) {
+		this(regex, "");
 	}
+
 	public PatternTextField() {
-		this("","");
+		this("", "");
 	}
 
 	public void clear() {
 		myfield.setBackground(c);
 	}
+
 	public boolean isPropriety() {
-		
+
 		if (!myfield.getText().matches(regex)) {
 			myfield.setBackground(new Color(255, 150, 150));
 			return false;
 		} else
 			myfield.setBackground(c);
 		return true;
-	
+
 	}
+
 	public void reset() {
-		myfield.setBackground(c);
+		myfield.setBackground(Color.white);
 	}
-	
+
 }

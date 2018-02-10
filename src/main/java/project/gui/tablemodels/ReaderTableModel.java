@@ -2,8 +2,6 @@ package project.gui.tablemodels;
 
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +9,7 @@ import project.model.Reader;
 import project.repositories.ReaderRepository;
 
 @Component
-public class ReaderTableModel extends AbstractTableModel {
+public class ReaderTableModel extends MyAbstractTableModel<Reader> {
 
 	private ReaderRepository repo;
 	private List<Reader> list;
@@ -75,12 +73,12 @@ public class ReaderTableModel extends AbstractTableModel {
 
 		}
 	}
-	public Reader getReader(int i)
+	public Reader getData(int i)
 	{
 		if(i==-1)return null;
 		return list.get(i);
 	}
-	public void removeReader(int i)
+	public void removeData(int i)
 	{
 		repo.deleteReader(list.get(i));
 		list.remove(i);

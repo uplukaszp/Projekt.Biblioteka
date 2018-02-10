@@ -2,8 +2,6 @@ package project.gui.tablemodels;
 
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +9,7 @@ import project.model.Author;
 import project.repositories.AuthorRepository;
 
 @Component
-public class AuthorTableModel extends AbstractTableModel{
+public class AuthorTableModel extends MyAbstractTableModel<Author>{
 
 	private AuthorRepository repo;
 	private List<Author> list;
@@ -44,6 +42,7 @@ public class AuthorTableModel extends AbstractTableModel{
 			return null;
 		}
 	}
+	@Override
 	public void update()
 	{
 		list=repo.getall();
@@ -65,20 +64,23 @@ public class AuthorTableModel extends AbstractTableModel{
 				
 			}
 	}
-	public Author getAuthor(int i)
-	{
-		if(i==-1)return null;
-		return list.get(i);
-	}
-	public void removeAuthor(int i)
-	{
-		repo.deleteAuthor(list.get(i));
-		list.remove(i);
-		fireTableDataChanged();
-	}
+
+
 	public void find(String text) {
 		list=repo.find(text);
 		fireTableDataChanged();
 		
+	}
+	@Override
+	public Author getData(int index) {
+		if(index==-1)return null;
+		return list.get(index);
+	}
+	@Override
+	public void removeData(int index) {
+
+		repo.deleteAuthor(list.get(index));
+		list.remove(index);
+		fireTableDataChanged();
 	}
 }

@@ -112,7 +112,7 @@ public class ShowLendDialog extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					LendTableModel model = (LendTableModel) table.getModel();
 
-					sender.sendNotify(model.getLend(table.getSelectedRow()));
+					sender.sendNotify(model.getData(table.getSelectedRow()));
 
 				}
 			});
@@ -162,7 +162,7 @@ public class ShowLendDialog extends JDialog {
 			public void valueChanged(ListSelectionEvent e) {
 				if (table.getSelectedRow() != -1) {
 					LendTableModel temp = (LendTableModel) table.getModel();
-					Lend currentLend = temp.getLend(table.getSelectedRow());
+					Lend currentLend = temp.getData(table.getSelectedRow());
 					if (currentLend.getReturnDate() != null || table.getSelectedRow() == -1) {
 						remindButton.setEnabled(false);
 						returnButton.setEnabled(false);

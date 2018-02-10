@@ -3,8 +3,6 @@ package project.gui.tablemodels;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +10,7 @@ import project.model.Book;
 import project.repositories.BookRepository;
 
 @Component
-public class BookTableModel extends AbstractTableModel {
+public class BookTableModel extends MyAbstractTableModel<Book> {
 
 	BookRepository repo;
 	private List<Book> list;
@@ -98,13 +96,13 @@ public class BookTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	public void removeBook(int selectedRow) {
+	public void removeData(int selectedRow) {
 		repo.removeBook(list.get(selectedRow));
 		update();
 
 	}
 
-	public Book getBook(int selectedRow) {
+	public Book getData(int selectedRow) {
 		return list.get(selectedRow);
 	}
 
@@ -112,4 +110,5 @@ public class BookTableModel extends AbstractTableModel {
 		list = repo.find(text);
 		fireTableDataChanged();
 	}
+	
 }

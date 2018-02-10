@@ -1,5 +1,6 @@
 package project.repositories;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import project.repositories.mappers.BookMapper;
 public class BookRepository {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public List<Book> getAll() {
 
@@ -35,9 +37,10 @@ public class BookRepository {
 	}
 
 	public void addBook(Book b) {
+		
 		jdbcTemplate.update(
 				"INSERT INTO ksiazki (Tytul,Rok_wydania,ISBN,Slowa_kluczowe,Dostepnosc,Gatunek,Id_autora,Id_wydawnictwa) VALUES(?,?,?,?,?,?,?,?)",
-				b.getTitle(), b.getPublicationDate(), b.getISBN(), b.getKeywords(), b.isAccesible(), b.getType(),
+				b.getTitle(), f.format(b.getPublicationDate()), b.getISBN(), b.getKeywords(), b.isAccesible(), b.getType(),
 				b.getAuthor().getId(), b.getPublisher().getId());
 	}
 
@@ -48,7 +51,7 @@ public class BookRepository {
 	public void updateBook(Book b) {
 		jdbcTemplate.update(
 				"UPDATE ksiazki SET Tytul=?,Rok_wydania=?,ISBN=?,Slowa_kluczowe=?,Dostepnosc=?,Gatunek=?,Id_autora=?,Id_wydawnictwa=? WHERE Id_ksiazki=?",
-				b.getTitle(), b.getPublicationDate(), b.getISBN(), b.getKeywords(), b.isAccesible(), b.getType(),
+				b.getTitle(), f.format(b.getPublicationDate()), b.getISBN(), b.getKeywords(), b.isAccesible(), b.getType(),
 				b.getAuthor().getId(), b.getPublisher().getId(), b.getId());
 
 	}
