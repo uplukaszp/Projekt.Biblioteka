@@ -93,6 +93,7 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 				});
 				cancelButton.setActionCommand("Cancel");
 			}
+			panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 			{
 				okButton = new JButton("OK");
 				okButton.setEnabled(false);
@@ -100,9 +101,8 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 				okButton.setActionCommand("OK");
 				getRootPane().setDefaultButton(okButton);
 			}
-			panel_1.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-			panel_1.add(cancelButton);
 			panel_1.add(okButton);
+			panel_1.add(cancelButton);
 		}
 		{
 			JPanel panel = new JPanel();
@@ -160,7 +160,7 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 			try {
 				model.removeData(table.getSelectedRow());
 			} catch (DataIntegrityViolationException ex) {
-				JOptionPane.showMessageDialog(null, "Nie mo¿na usun¹æ autora przypisanego do ksi¹¿ki!");
+				JOptionPane.showMessageDialog(null, "Nie mo¿na usun¹æ autora przypisanego do ksi¹¿ki!","",JOptionPane.INFORMATION_MESSAGE);
 			}
 		};
 	}

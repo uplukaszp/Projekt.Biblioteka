@@ -35,6 +35,7 @@ public class LendSettingsDialog extends JDialog {
 	private PatternTextField penaltyTextField;
 
 	public LendSettingsDialog() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Opcje wypo¿yczeñ");
 		setBounds(100, 100, 329, 166);

@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Component;
 
 import javax.swing.GroupLayout;
@@ -19,12 +20,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
 
@@ -37,6 +41,50 @@ public class ConnectionDialog extends JDialog {
 	private JTextField adresTextField;
 	private JTextField portTextField;
 	private JTextField nameTextField;
+	private JButton cancelButton;
+
+	public ConnectionDialog(boolean isClosingProgram) {
+		this();
+		if (isClosingProgram) {
+			cancelButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
+			this.addWindowListener(new WindowListener() {
+				@Override
+				public void windowOpened(WindowEvent e) {
+				}
+
+				@Override
+				public void windowIconified(WindowEvent e) {
+				}
+
+				@Override
+				public void windowDeiconified(WindowEvent e) {
+				}
+
+				@Override
+				public void windowDeactivated(WindowEvent e) {
+				}
+
+				@Override
+				public void windowClosing(WindowEvent e) {
+					System.exit(0);
+				}
+
+				@Override
+				public void windowClosed(WindowEvent e) {
+				}
+
+				@Override
+				public void windowActivated(WindowEvent e) {
+				}
+			});
+		}
+	}
 
 	public ConnectionDialog() {
 		setResizable(false);
@@ -109,14 +157,12 @@ public class ConnectionDialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						int dialogRes = JOptionPane.showConfirmDialog(null,
-								"Aby zapisaæ zmiany, nalezy uruchomiæ ponownie aplikacje. Czy chcesz zamkn¹æ teraz aplikacjê?",
-								"", JOptionPane.YES_NO_OPTION);
-						if (dialogRes == JOptionPane.YES_OPTION) {
-							saveProperties();
-							System.exit(0);
-						} else
-							setVisible(false);
+						if (!checkConnection()) {
+							JOptionPane.showMessageDialog(null, "Nieprawid³owe dane, sprawdŸ ustawienia","",JOptionPane.INFORMATION_MESSAGE);
+						}
+						JOptionPane.showMessageDialog(null, "Aplikacja zostanie zamkniêta, w celu zapisania danych","",JOptionPane.INFORMATION_MESSAGE);
+						saveProperties();
+						System.exit(0);
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -124,7 +170,7 @@ public class ConnectionDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						setVisible(false);
@@ -142,7 +188,7 @@ public class ConnectionDialog extends JDialog {
 		if (visible)
 			loadProperties();
 		super.setVisible(visible);
-		
+
 	}
 
 	void loadProperties() {
@@ -177,6 +223,20 @@ public class ConnectionDialog extends JDialog {
 			prop.store(stream, "");
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private boolean checkConnection() {
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://" + adresTextField.getText() + ":" + portTextField.getText() + "/"
+				+ nameTextField.getText());
+		dataSource.setUsername(loginTextField.getText());
+		dataSource.setPassword(String.valueOf(passwordField.getPassword()));
+		try {
+			return !dataSource.getConnection().isClosed();
+		} catch (SQLException e) {
+			return false;
 		}
 
 	}

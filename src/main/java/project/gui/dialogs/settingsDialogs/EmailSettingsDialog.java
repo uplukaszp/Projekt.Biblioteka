@@ -21,6 +21,10 @@ import org.springframework.stereotype.Component;
 import project.gui.components.PatternTextField;
 import project.gui.components.PatternVerifier;
 
+import javax.mail.AuthenticationFailedException;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -41,6 +45,7 @@ public class EmailSettingsDialog extends JDialog {
 	private PatternVerifier verifier;
 
 	public EmailSettingsDialog() {
+		setResizable(false);
 		setModal(true);
 		setTitle("Ustawienia poczty email");
 		setBounds(100, 100, 228, 299);
@@ -118,14 +123,14 @@ public class EmailSettingsDialog extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						if (!verifier.areFieldsMatched())
 							return;
-						int dialogRes = JOptionPane.showConfirmDialog(null,
-								"Aby zapisaæ zmiany, nalezy uruchomiæ ponownie aplikacje. Czy chcesz zamkn¹æ teraz aplikacjê?",
-								"", JOptionPane.YES_NO_OPTION);
-						if (dialogRes == JOptionPane.YES_OPTION) {
-							saveProperties();
-							System.exit(0);
-						} else
-							setVisible(false);
+						if(!checkConnection()) {
+							JOptionPane.showMessageDialog(null, "Nieprawid³owe dane, sprawdŸ ustawienia","",JOptionPane.INFORMATION_MESSAGE);
+							return;
+						}
+						JOptionPane.showMessageDialog(null, "Aplikacja zostanie zapisana w celu zapisania danych","",JOptionPane.INFORMATION_MESSAGE);
+						saveProperties();
+						System.exit(0);
+
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -188,4 +193,21 @@ public class EmailSettingsDialog extends JDialog {
 		}
 		super.setVisible(visible);
 	}
+
+	private boolean checkConnection() {
+		try {
+			Properties props = new Properties();
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.auth", "true");
+			Session session = Session.getInstance(props, null);
+			Transport transport = session.getTransport("smtp");
+			transport.connect(hostTextField.getText(), Integer.valueOf(portTextField.getText()),
+					loginTextField.getText(), String.valueOf(passwordTextField.getPassword()));
+			transport.close();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
 }

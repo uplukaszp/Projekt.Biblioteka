@@ -1,5 +1,6 @@
 package project.config;
 
+import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -43,7 +44,7 @@ public class AppConfig {
 	String emailPw; 
 
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource(){
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://"+url+":"+port+"/"+dbName);
@@ -64,20 +65,15 @@ public class AppConfig {
 	}
 
 	@Bean
-	public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
-		return new NamedParameterJdbcTemplate(dataSource());
-	}
-	@Bean
 	public JavaMailSenderImpl getJavaMailSender()
 	{
 		JavaMailSenderImpl sender=new JavaMailSenderImpl();
-		System.out.println(emailPort);
 		int port=Integer.valueOf(emailPort);
 		sender.setHost(emailHost);
 		sender.setPort(port);
 		sender.setUsername(emailUsername);
 		sender.setPassword(emailPw);
-		
+
 		Properties props = sender.getJavaMailProperties();
 	    props.put("mail.transport.protocol", "smtp");
 	    props.put("mail.smtp.auth", "true");

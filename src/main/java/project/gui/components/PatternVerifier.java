@@ -17,7 +17,6 @@ public class PatternVerifier {
 
 			match = isFieldMatched(jComponent, match);
 		}
-		System.out.println(match);
 		return match;
 	}
 
@@ -32,7 +31,6 @@ public class PatternVerifier {
 		if (jComponent instanceof PatternTextField) {
 			PatternTextField field = (PatternTextField) jComponent;
 			if (!field.isPropriety()) {
-				System.out.println(false);
 				match = false;
 			}
 		}

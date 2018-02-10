@@ -34,7 +34,7 @@ public class EmailSenderService {
 				message.setText(parseMessage(l));
 				sender.send(message);
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Podano z³e dane do poczty, nale¿y je poprawiæ");
+					JOptionPane.showMessageDialog(null, "Podano z³e dane do poczty, nale¿y je poprawiæ","",JOptionPane.INFORMATION_MESSAGE);
 					settings.setVisible(true);
 				}	
 			}

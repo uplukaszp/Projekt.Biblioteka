@@ -11,5 +11,6 @@ public class ShowReaderDialog extends ShowAbstractDialog<Reader> {
 
 	public ShowReaderDialog(AbstractDialog<Reader> dialog, MyAbstractTableModel<Reader> model) {
 		super(dialog, model);
-		// TODO Auto-generated constructor stub
-	}}
+		setTitle("Przegl¹daj czytelników");
+	}
+}

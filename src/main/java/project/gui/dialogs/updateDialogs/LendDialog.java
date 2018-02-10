@@ -82,10 +82,10 @@ public class LendDialog extends JDialog {
 						bookLabel.setText(l.getBook().toString());
 						return;
 					case lent:	
-						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wypo¿yczona do: "+repo.dateOfReturn(b.getId()));
+						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wypo¿yczona do: "+repo.dateOfReturn(b.getId()),"",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					case withdrawn:
-						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wycofana");
+						JOptionPane.showMessageDialog(null, "Ksi¹¿ka wycofana","",JOptionPane.INFORMATION_MESSAGE);
 						break;
 					default:
 						break;
@@ -134,7 +134,7 @@ public class LendDialog extends JDialog {
 						l.setBook(null);
 						bookLabel.setText("Brak");
 					} else {
-						JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych");
+						JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych","",JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			});
@@ -152,7 +152,7 @@ public class LendDialog extends JDialog {
 							readerLabel.setText("Brak");
 							setVisible(false);
 						} else {
-							JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych");
+							JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych","",JOptionPane.INFORMATION_MESSAGE);
 						}
 
 					}

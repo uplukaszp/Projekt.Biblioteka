@@ -34,7 +34,7 @@ public class BookDialog extends AbstractDialog<Book> {
 		Book b = (Book) contentPane.getData();
 		if(b.getAuthor().getId()==0||b.getPublisher().getId()==0)
 		{
-			JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych");
+			JOptionPane.showMessageDialog(null, "Nie uzupe³niono wszystkich danych","",JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
 		if (b.getId() == 0)

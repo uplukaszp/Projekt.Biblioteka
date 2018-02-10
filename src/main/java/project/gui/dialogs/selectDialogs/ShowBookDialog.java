@@ -11,7 +11,6 @@ public class ShowBookDialog extends ShowAbstractDialog<Book> {
 
 	public ShowBookDialog(AbstractDialog<Book> dialog, MyAbstractTableModel<Book> model) {
 		super(dialog, model);
-		// TODO Auto-generated constructor stub
-	}
+		setTitle("Przegl¹daj ksi¹¿ki");	}
 
 }

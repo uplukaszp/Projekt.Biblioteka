@@ -11,6 +11,6 @@ public class ShowPublisherDialog extends ShowAbstractDialog<Publisher> {
 
 	public ShowPublisherDialog(AbstractDialog<Publisher> dialog, MyAbstractTableModel<Publisher> model) {
 		super(dialog, model);
-		// TODO Auto-generated constructor stub
+		setTitle("Przegl¹daj wydawnictwa");
 	}
 }

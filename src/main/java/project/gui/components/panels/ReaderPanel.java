@@ -43,16 +43,16 @@ public class ReaderPanel extends AbstractPanel<Reader> {
 
 		forname = new PatternTextField(
 				"[A-Z\u0106\u0118\u0141\u0143\u00D3\u015A\u0179\u017B]{1}[a-z\u0105\u0107\u0119\u0142\u0144\u00F3\u015B\u017A\u017C]{1,44}",
-				"Zaczyna si\u0119 z du\u017Cej litery\\\\n i zawiera tylko litery");
+				"Zaczyna si\u0119 z du\u017Cej litery i zawiera tylko litery(max. 45 znaków)");
 		forname.setColumns(10);
 
 		surname = new PatternTextField(
 				"[A-Z\u0106\u0118\u0141\u0143\u00D3\u015A\u0179\u017B]{1}[A-Za-z\u0105\u0107\u0119\u0142\u0144\u00F3\u015B\u017A\u017C\u0106\u0118\u0141\u0143\u00D3\u015A\u0179\u017B\\-]{1,44}",
-				"Zaczyna si\u0119 z du\u017Cej litery\\n i zawiera tylko litery");
+				"Zaczyna si\u0119 z du\u017Cej litery i zawiera tylko litery(max. 45 znaków)");
 		surname.setColumns(10);
 
 		street = new PatternTextField(
-				"[A-Z\u0106\u0118\u0141\u0143\u00D3\u015A\u0179\u017B]{1}[a-z\u0105\u0107\u0119\u0142\u0144\u00F3\u015B\u017A\u017C1-9 ]{1,44}",
+				"[A-Z\u0106\u0118\u0141\u0143\u00D3\u015A\u0179\u017B]{1}[a-z\u0105\u0107\u0119\u0142\u0144\u00F3\u015B\u017A\u017C1-9 \\\\.]{1,44}",
 				"Nazwa ulicy rozpoczynaj\u0105ca si\u0119 od du\u017Cej litery i nr posesji, np. Lipowa 15(do 45 znak\u00F3w)");
 		street.setColumns(10);
 
@@ -66,7 +66,7 @@ public class ReaderPanel extends AbstractPanel<Reader> {
 
 		email = new PatternTextField(
 				"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",
-				"Adres email w formacie nazwa@host.pl");
+				"Adres email w formacie nazwa@adreshostu");
 		email.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(

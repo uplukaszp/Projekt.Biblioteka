@@ -11,6 +11,7 @@ public class ShowAuthorDialog extends ShowAbstractDialog<Author> {
 
 	public ShowAuthorDialog(AbstractDialog<Author> dialog, MyAbstractTableModel<Author> model) {
 		super(dialog, model);
+		setTitle("Przegl¹daj autorów");
 	}
 
 	
