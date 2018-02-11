@@ -31,7 +31,7 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	protected MyAbstractTableModel<ModelItem> model;
-	private JTable table;
+	protected JTable table;
 	private ModelItem item;
 	private JButton deleteButton;
 
@@ -45,12 +45,14 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 
 	private boolean selectMode;
 	private JPanel panel_1;
+	protected JButton btn;
+	protected int currentRow=-1;
 @Autowired
 	public ShowAbstractDialog(AbstractDialog<ModelItem> dialog,MyAbstractTableModel<ModelItem> model) {
 		setModal(true);
 		this.dialog=dialog;
 		this.model=model;
-		setBounds(100, 100, 470, 312);
+		setBounds(100, 100, 517, 313);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -120,29 +122,42 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 			editButton = new JButton("Edytuj");
 			editButton.setEnabled(false);
 			editButton.addActionListener(editAction());
+			
+			btn = new JButton("Wycofaj");
+			btn.setEnabled(false);
+			btn.setVisible(false);
 			GroupLayout gl_panel = new GroupLayout(panel);
-			gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_panel.createSequentialGroup().addContainerGap()
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(editButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-											Short.MAX_VALUE)
-									.addComponent(addButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-											Short.MAX_VALUE)
-									.addComponent(deleteButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-											Short.MAX_VALUE))
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-			gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_panel.createSequentialGroup().addGap(71).addComponent(deleteButton)
-							.addPreferredGap(ComponentPlacement.RELATED).addComponent(addButton)
-							.addPreferredGap(ComponentPlacement.RELATED).addComponent(editButton)
-							.addContainerGap(76, Short.MAX_VALUE)));
+			gl_panel.setHorizontalGroup(
+				gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+							.addComponent(editButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+							.addComponent(btn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+							.addComponent(addButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+							.addComponent(deleteButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+						.addContainerGap())
+			);
+			gl_panel.setVerticalGroup(
+				gl_panel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel.createSequentialGroup()
+						.addGap(71)
+						.addComponent(deleteButton)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(addButton)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(editButton)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(btn)
+						.addContainerGap(27, Short.MAX_VALUE))
+			);
 			panel.setLayout(gl_panel);
 		}
 	}
 
 	private ActionListener editAction() {
 		return e -> {
-			dialog.setData(model.getData(table.getSelectedRow()));
+			dialog.setData(model.getData(currentRow));
 			dialog.setVisible(true);
 			model.update();
 		};
@@ -158,17 +173,20 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 	private ActionListener deleteAction() {
 		return e -> {
 			try {
-				model.removeData(table.getSelectedRow());
+				model.removeData(currentRow);
 			} catch (DataIntegrityViolationException ex) {
 				JOptionPane.showMessageDialog(null, "Nie mo¿na usun¹æ autora przypisanego do ksi¹¿ki!","",JOptionPane.INFORMATION_MESSAGE);
 			}
 		};
 	}
 
-	private void selectionChanged() {
-		deleteButton.setEnabled(table.getSelectedRow() != -1);
-		editButton.setEnabled(table.getSelectedRow() != -1);
-		okButton.setEnabled(table.getSelectedRow() != -1);
+	protected void selectionChanged() {
+		if(table.getSelectedRow()!=-1)currentRow=table.getSelectedRow();
+		boolean isSomethingSelected = table.getSelectedRow() != -1;
+		deleteButton.setEnabled(isSomethingSelected);
+		editButton.setEnabled(isSomethingSelected);
+		okButton.setEnabled(isSomethingSelected);
+		btn.setEnabled(isSomethingSelected);
 	}
 
 	void findAction()
@@ -178,7 +196,7 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 
 	void okAction()
 	{
-		item=model.getData(table.getSelectedRow());
+		item=model.getData(currentRow);
 		setVisible(false);
 	}
 

@@ -68,4 +68,8 @@ public class BookRepository {
 		return jdbcTemplate.query(sql, new BookMapper(), text, text, text, text, text, text, text, text);
 	}
 
+	public void withdrawn(Book book) {
+		jdbcTemplate.update("UPDATE ksiazki SET Dostepnosc=? WHERE Id_ksiazki=?",0,book.getId());
+	}
+
 }

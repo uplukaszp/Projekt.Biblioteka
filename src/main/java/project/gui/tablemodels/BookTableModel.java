@@ -110,5 +110,11 @@ public class BookTableModel extends MyAbstractTableModel<Book> {
 		list = repo.find(text);
 		fireTableDataChanged();
 	}
+
+	public void withdrawn(int selectedRow) {
+		Book b=list.get(selectedRow);
+		repo.withdrawn(b);
+		update();
+	}
 	
 }
