@@ -12,5 +12,6 @@ public class ShowPublisherDialog extends ShowAbstractDialog<Publisher> {
 	public ShowPublisherDialog(AbstractDialog<Publisher> dialog, MyAbstractTableModel<Publisher> model) {
 		super(dialog, model);
 		setTitle("Przegl¹daj wydawnictwa");
+		item=new Publisher();
 	}
 }

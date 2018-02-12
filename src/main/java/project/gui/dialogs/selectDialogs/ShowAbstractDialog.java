@@ -32,7 +32,7 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 
 	protected MyAbstractTableModel<ModelItem> model;
 	protected JTable table;
-	private ModelItem item;
+	protected ModelItem item;
 	private JButton deleteButton;
 
 	private AbstractDialog<ModelItem> dialog;
@@ -204,7 +204,7 @@ public  abstract class ShowAbstractDialog<ModelItem> extends JDialog {
 	public void setVisible(boolean visible) {
 		if (visible)
 
-			model.update();
+		model.update();
 		panel_1.setVisible(selectMode);
 		textField.setText("");
 		super.setVisible(visible);

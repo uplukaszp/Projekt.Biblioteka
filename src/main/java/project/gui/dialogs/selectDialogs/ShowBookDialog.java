@@ -19,6 +19,7 @@ public class ShowBookDialog extends ShowAbstractDialog<Book> {
 	@Autowired
 	public ShowBookDialog(BookDialog dialog, BookTableModel model) {
 		super(dialog, model);
+		item=new Book();
 		setTitle("Przegl¹daj ksi¹¿ki");
 		btn.setVisible(true);
 		btn.addActionListener(new ActionListener() {
